@@ -1,13 +1,18 @@
 package org.game.state;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import org.game.items.EquipmentItem;
 
 public class GameCharacter {
 	
 	private String name;
 	private int healthPoints;
-	private Map<String, Integer> characterAttributes = new HashMap<>();
+	private Map<StatAttribute, Integer> statAttributes = new HashMap<>();
+	private List<EquipmentItem> equippedItems = new ArrayList<>();
 
 	public String getName() {
 		return name;
@@ -22,11 +27,17 @@ public class GameCharacter {
 		this.healthPoints = healthPoints;
 	}
 	
-	public Map<String, Integer> getCharacterAttributes() {
-		return characterAttributes;
+	public Map<StatAttribute, Integer> getStatAttributes() {
+		return statAttributes;
 	}
-	public void setCharacterAttributes(Map<String, Integer> characterAttributes) {
-		this.characterAttributes = characterAttributes;
+	public void setStatAttributes(Map<StatAttribute, Integer> statAttributes) {
+		this.statAttributes = statAttributes;
+	}
+	public List<EquipmentItem> getEquippedItems() {
+		return equippedItems;
+	}
+	public void setEquippedItems(List<EquipmentItem> equippedItems) {
+		this.equippedItems = equippedItems;
 	}
 
 }
