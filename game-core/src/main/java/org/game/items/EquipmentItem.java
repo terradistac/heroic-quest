@@ -27,6 +27,7 @@ public class EquipmentItem extends Item {
 		GameCharacter character = gameState.getCharacter();
 		if (!character.getEquippedItems().contains(this)) {
 			gameState.getCharacter().getEquippedItems().add(this);
+			applyAttributeEffects(gameState);
 		}
 	}
 
@@ -34,6 +35,7 @@ public class EquipmentItem extends Item {
 		GameCharacter character = gameState.getCharacter();
 		if (character.getEquippedItems().contains(this)) {
 			gameState.getCharacter().getEquippedItems().remove(this);
+			removeAttributeEffects(gameState);
 		}
 	}
 
@@ -44,6 +46,16 @@ public class EquipmentItem extends Item {
 		for (StatAttribute attributeName : equipmentAttributes) {
 			characterAttributes.put(attributeName,
 					characterAttributes.get(attributeName) + this.attributeEffects.get(attributeName));
+		}
+	}
+	
+	protected void removeAttributeEffects(GameState gameState) {
+		Set<StatAttribute> equipmentAttributes = this.attributeEffects.keySet();
+		Map<StatAttribute, Integer> characterAttributes = gameState.getCharacter().getStatAttributes();
+
+		for (StatAttribute attributeName : equipmentAttributes) {
+			characterAttributes.put(attributeName,
+					characterAttributes.get(attributeName) - this.attributeEffects.get(attributeName));
 		}
 	}
 

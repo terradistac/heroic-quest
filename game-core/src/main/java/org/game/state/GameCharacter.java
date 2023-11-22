@@ -13,6 +13,14 @@ public class GameCharacter {
 	private int healthPoints;
 	private Map<StatAttribute, Integer> statAttributes = new HashMap<>();
 	private List<EquipmentItem> equippedItems = new ArrayList<>();
+	
+	public GameCharacter() {
+		statAttributes.put(StatAttribute.CONSTITUTION, 0);
+		statAttributes.put(StatAttribute.DEXTERITY, 0);
+		statAttributes.put(StatAttribute.INTELLIGENCE, 0);
+		statAttributes.put(StatAttribute.STRENGTH, 0);
+		statAttributes.put(StatAttribute.WISDOM, 0);
+	}
 
 	public String getName() {
 		return name;

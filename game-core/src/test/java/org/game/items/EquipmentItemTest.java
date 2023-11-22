@@ -96,6 +96,29 @@ public class EquipmentItemTest {
 		assertEquals(10, gameState.getCharacter().getStatAttributes().get(StatAttribute.WISDOM));
 	}
 	
+	@Test
+	public void testRemoveAttributeEffects() {
+		EquipmentItem equipment = new EquipmentItem("Sword", constructStatAttributes());
+		GameState gameState = new GameState();
+		GameCharacter character = new GameCharacter();
+		character.setStatAttributes(constructStatAttributes());
+		gameState.setCharacter(character);
+		
+		assertEquals(1, gameState.getCharacter().getStatAttributes().get(StatAttribute.CONSTITUTION));
+		assertEquals(2, gameState.getCharacter().getStatAttributes().get(StatAttribute.DEXTERITY));
+		assertEquals(3, gameState.getCharacter().getStatAttributes().get(StatAttribute.INTELLIGENCE));
+		assertEquals(4, gameState.getCharacter().getStatAttributes().get(StatAttribute.STRENGTH));
+		assertEquals(5, gameState.getCharacter().getStatAttributes().get(StatAttribute.WISDOM));
+		
+		equipment.removeAttributeEffects(gameState);
+		
+		assertEquals(0, gameState.getCharacter().getStatAttributes().get(StatAttribute.CONSTITUTION));
+		assertEquals(0, gameState.getCharacter().getStatAttributes().get(StatAttribute.DEXTERITY));
+		assertEquals(0, gameState.getCharacter().getStatAttributes().get(StatAttribute.INTELLIGENCE));
+		assertEquals(0, gameState.getCharacter().getStatAttributes().get(StatAttribute.STRENGTH));
+		assertEquals(0, gameState.getCharacter().getStatAttributes().get(StatAttribute.WISDOM));
+	}
+	
 	private Map<StatAttribute, Integer> constructStatAttributes() {
 		Map<StatAttribute, Integer> attributeEffects = new HashMap<>();
 		attributeEffects.put(StatAttribute.CONSTITUTION, 1);
