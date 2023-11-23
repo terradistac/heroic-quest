@@ -20,5 +20,9 @@ public class ConsumableItem extends Item {
 			gameState.getItems().remove(this);
 		}
 	}
+	
+	public int getHealingPotency() {
+		return this.healingPotency;
+	}
 
 }
