@@ -3,7 +3,7 @@ package org.game.items;
 import java.util.HashMap;
 import java.util.Random;
 
-import org.game.state.StatAttribute;
+import org.game.attributes.StatAttribute;
 
 public class CommonItemGenerator implements ItemGenerator {
 

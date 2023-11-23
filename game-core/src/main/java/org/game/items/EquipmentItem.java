@@ -2,11 +2,8 @@ package org.game.items;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
-import org.game.state.GameCharacter;
-import org.game.state.GameState;
-import org.game.state.StatAttribute;
+import org.game.attributes.StatAttribute;
 
 public class EquipmentItem extends Item {
 
@@ -15,48 +12,6 @@ public class EquipmentItem extends Item {
 	public EquipmentItem(String name, Map<StatAttribute, Integer> statAttributes) {
 		super(name);
 		this.setAttributeEffects(statAttributes);
-	}
-
-	@Override
-	public void applyEffect(GameState gameState) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void equipItem(GameState gameState) {
-		GameCharacter character = gameState.getCharacter();
-		if (!character.getEquippedItems().contains(this)) {
-			gameState.getCharacter().getEquippedItems().add(this);
-			applyAttributeEffects(gameState);
-		}
-	}
-
-	public void unequipItem(GameState gameState) {
-		GameCharacter character = gameState.getCharacter();
-		if (character.getEquippedItems().contains(this)) {
-			gameState.getCharacter().getEquippedItems().remove(this);
-			removeAttributeEffects(gameState);
-		}
-	}
-
-	protected void applyAttributeEffects(GameState gameState) {
-		Set<StatAttribute> equipmentAttributes = this.attributeEffects.keySet();
-		Map<StatAttribute, Integer> characterAttributes = gameState.getCharacter().getStatAttributes();
-
-		for (StatAttribute attributeName : equipmentAttributes) {
-			characterAttributes.put(attributeName,
-					characterAttributes.get(attributeName) + this.attributeEffects.get(attributeName));
-		}
-	}
-	
-	protected void removeAttributeEffects(GameState gameState) {
-		Set<StatAttribute> equipmentAttributes = this.attributeEffects.keySet();
-		Map<StatAttribute, Integer> characterAttributes = gameState.getCharacter().getStatAttributes();
-
-		for (StatAttribute attributeName : equipmentAttributes) {
-			characterAttributes.put(attributeName,
-					characterAttributes.get(attributeName) - this.attributeEffects.get(attributeName));
-		}
 	}
 
 	public Map<StatAttribute, Integer> getAttributeEffects() {

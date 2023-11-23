@@ -1,4 +1,4 @@
-package org.game.state;
+package org.game.attributes;
 
 public enum StatAttribute {
 	

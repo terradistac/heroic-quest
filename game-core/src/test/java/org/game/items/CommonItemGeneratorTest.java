@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.Map;
 
 import org.easymock.EasyMock;
-import org.game.state.StatAttribute;
+import org.game.attributes.StatAttribute;
 import org.junit.jupiter.api.Test;
 
 public class CommonItemGeneratorTest {
