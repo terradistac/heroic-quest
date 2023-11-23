@@ -2,7 +2,6 @@ package org.game.encounters;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.game.encounters.ItemEncounter;
 import org.game.state.GameState;
 import org.junit.jupiter.api.Test;
 

@@ -42,7 +42,7 @@ public class CommonItemGeneratorTest {
 	@Test
 	public void testRollForConsumableItem() {
 		Item randomItem;
-		CommonItemGenerator generator = EasyMock.partialMockBuilder(CommonItemGenerator.class).addMockedMethod("getRandomResult").mock();
+		CommonItemGenerator generator = EasyMock.partialMockBuilder(CommonItemGenerator.class).addMockedMethod("getRandomNumber").mock();
 		EasyMock.expect(generator.getRandomNumber()).andReturn(1);
 		EasyMock.replay(generator);
 		
@@ -72,7 +72,7 @@ public class CommonItemGeneratorTest {
 	@Test
 	public void testRollForEquipmentItem() {
 		Item randomItem;
-		CommonItemGenerator generator = EasyMock.partialMockBuilder(CommonItemGenerator.class).addMockedMethod("getRandomResult").mock();
+		CommonItemGenerator generator = EasyMock.partialMockBuilder(CommonItemGenerator.class).addMockedMethod("getRandomNumber").mock();
 		EasyMock.expect(generator.getRandomNumber()).andReturn(3).times(3);
 		EasyMock.replay(generator);
 		
@@ -93,7 +93,7 @@ public class CommonItemGeneratorTest {
 	@Test
 	public void testRollForJunkItem() {
 		Item randomItem;
-		CommonItemGenerator generator = EasyMock.partialMockBuilder(CommonItemGenerator.class).addMockedMethod("getRandomResult").mock();
+		CommonItemGenerator generator = EasyMock.partialMockBuilder(CommonItemGenerator.class).addMockedMethod("getRandomNumber").mock();
 		EasyMock.expect(generator.getRandomNumber()).andReturn(5).times(2);
 		EasyMock.replay(generator);
 		
