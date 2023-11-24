@@ -9,11 +9,16 @@ public class ItemEncounter implements Encounter {
 	private ItemGenerator itemGenerator;
 
 	@Override
-	public void resolveEncounter(GameState gameState) {
-		ItemGeneratorFactory itemGeneratorFactory = new ItemGeneratorFactory();
-		itemGenerator = itemGeneratorFactory.createCommonItemGenerator();
-		
+	public void resolveEncounter(GameState gameState) {		
 		gameState.getItems().add(itemGenerator.rollForRandomItem());
+	}
+	
+	public ItemGenerator getItemGenerator() {
+		return itemGenerator;
+	}
+
+	public void setItemGenerator(ItemGenerator itemGenerator) {
+		this.itemGenerator = itemGenerator;
 	}
 
 }
