@@ -8,11 +8,13 @@ import org.game.encounters.RandomEncounterGenerator;
 import org.game.state.GameState;
 import org.junit.jupiter.api.Test;
 
-public class MovementTest {
+public class WildernessMovementWrapperTest {
+	
+	Movement basicMovement = new BasicMovement();
 	
 	@Test
 	public void testMoveResolveEncounter() {
-		Movement movement = new Movement();
+		WildernessMovementWrapper movement = new WildernessMovementWrapper(basicMovement);
 		GameState gameState = new GameState();
 		RandomEncounterGenerator encounterGenerator = EasyMock.createMock(RandomEncounterGenerator.class);
 		Encounter encounter = EasyMock.createMock(Encounter.class);
@@ -32,7 +34,7 @@ public class MovementTest {
 	@Test
 	public void testMoveNorth() {
 		GameState gameState = new GameState();
-		Movement movement = new Movement();
+		WildernessMovementWrapper movement = new WildernessMovementWrapper(basicMovement);
 		
 		RandomEncounterGenerator encounterGenerator = EasyMock.createMock(RandomEncounterGenerator.class);
 		Encounter encounter = EasyMock.createMock(Encounter.class);
@@ -57,7 +59,7 @@ public class MovementTest {
 	@Test
 	public void testMoveEast() {
 		GameState gameState = new GameState();
-		Movement movement = new Movement();
+		WildernessMovementWrapper movement = new WildernessMovementWrapper(basicMovement);
 		
 		RandomEncounterGenerator encounterGenerator = EasyMock.createMock(RandomEncounterGenerator.class);
 		Encounter encounter = EasyMock.createMock(Encounter.class);
@@ -82,7 +84,7 @@ public class MovementTest {
 	@Test
 	public void testMoveWest() {
 		GameState gameState = new GameState();
-		Movement movement = new Movement();
+		WildernessMovementWrapper movement = new WildernessMovementWrapper(basicMovement);
 		
 		RandomEncounterGenerator encounterGenerator = EasyMock.createMock(RandomEncounterGenerator.class);
 		Encounter encounter = EasyMock.createMock(Encounter.class);
@@ -107,7 +109,7 @@ public class MovementTest {
 	@Test
 	public void testMoveSouth() {
 		GameState gameState = new GameState();
-		Movement movement = new Movement();
+		WildernessMovementWrapper movement = new WildernessMovementWrapper(basicMovement);
 		
 		RandomEncounterGenerator encounterGenerator = EasyMock.createMock(RandomEncounterGenerator.class);
 		Encounter encounter = EasyMock.createMock(Encounter.class);

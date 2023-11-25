@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.easymock.EasyMock;
-import org.game.action.InventoryManager;
+import org.game.action.BasicInventoryManager;
 import org.game.attributes.StatAttribute;
 import org.game.items.ConsumableItem;
 import org.game.items.EquipmentItem;
@@ -18,10 +18,9 @@ import org.game.state.GameCharacter;
 import org.game.state.GameState;
 import org.junit.jupiter.api.Test;
 
-public class InventoryManagerTest {
+public class BasicInventoryManagerTest {
 	
-	InventoryManager inventoryManager = new InventoryManager();
-	UserMessenger userMessenger = EasyMock.createMock(UserMessenger.class);
+	BasicInventoryManager inventoryManager = new BasicInventoryManager();
 	
 	@Test
 	public void testAddToInventory() {
@@ -45,17 +44,10 @@ public class InventoryManagerTest {
 		gameState.setCharacter(gameCharacter);
 		gameState.getItems().add(potion);
 		
-		userMessenger.notifyUser(InventoryManager.USE_ITEM + "Potion of Healing" + InventoryManager.PERIOD);
-		EasyMock.expectLastCall();
-		inventoryManager.setUserMessenger(userMessenger);
-		EasyMock.replay(userMessenger);
-		
 		assertEquals(1, gameState.getItems().size());
 		inventoryManager.applyEffect(gameState, potion);
 		assertEquals(10, gameState.getCharacter().getHealthPoints());
 		assertEquals(0, gameState.getItems().size());
-		EasyMock.verify(userMessenger);
-		EasyMock.reset(userMessenger);
 	}
 	
 	@Test
@@ -74,20 +66,12 @@ public class InventoryManagerTest {
 		gameState.getItems().add(junkItem);
 		gameState.getItems().add(potion2);
 		
-		userMessenger.notifyUser(InventoryManager.USE_ITEM + "Potion of Healing" + InventoryManager.PERIOD);
-		EasyMock.expectLastCall().once();
-		EasyMock.replay(userMessenger);
-		inventoryManager.setUserMessenger(userMessenger);
-		
 		assertEquals(4, gameState.getItems().size());
 		inventoryManager.applyEffect(gameState, potion);
 		assertEquals(3, gameState.getItems().size());
 		assertEquals("Potion of Invisibility", gameState.getItems().get(0).getName());
 		assertEquals("Old Boot", gameState.getItems().get(1).getName());
 		assertEquals("Potion of Firebreathing", gameState.getItems().get(2).getName());
-		
-		EasyMock.verify(userMessenger);
-		EasyMock.reset(userMessenger);
 	}
 	
 	@Test
@@ -97,18 +81,10 @@ public class InventoryManagerTest {
 		GameCharacter character = new GameCharacter();
 		gameState.setCharacter(character);
 		
-		userMessenger.notifyUser(InventoryManager.EQUIP_ITEM + "Sword" + InventoryManager.PERIOD);
-		EasyMock.expectLastCall();
-		inventoryManager.setUserMessenger(userMessenger);
-		EasyMock.replay(userMessenger);
-		
 		assertEquals(0, gameState.getCharacter().getEquippedItems().size());
 		inventoryManager.equipItem(gameState, equipment);
 		assertEquals(1, gameState.getCharacter().getEquippedItems().size());
 		assertTrue(gameState.getCharacter().getEquippedItems().contains(equipment));
-		
-		EasyMock.verify(userMessenger);
-		EasyMock.reset(userMessenger);
 	}
 	
 	@Test
@@ -118,20 +94,11 @@ public class InventoryManagerTest {
 		GameCharacter character = new GameCharacter();
 		gameState.setCharacter(character);
 		
-		userMessenger.notifyUser(InventoryManager.EQUIP_ITEM + "Sword" + InventoryManager.PERIOD);
-		EasyMock.expectLastCall().once();
-		EasyMock.replay(userMessenger);
-		
-		inventoryManager.setUserMessenger(userMessenger);
-		
 		inventoryManager.equipItem(gameState, equipment);
 		assertEquals(1, gameState.getCharacter().getEquippedItems().size());
 		inventoryManager.equipItem(gameState, equipment);
 		assertEquals(1, gameState.getCharacter().getEquippedItems().size());
 		assertTrue(gameState.getCharacter().getEquippedItems().contains(equipment));
-		
-		EasyMock.verify(userMessenger);
-		EasyMock.reset(userMessenger);
 	}
 	
 	@Test
@@ -141,20 +108,10 @@ public class InventoryManagerTest {
 		GameCharacter character = new GameCharacter();
 		gameState.setCharacter(character);
 		
-		userMessenger.notifyUser(InventoryManager.EQUIP_ITEM + "Sword" + InventoryManager.PERIOD);
-		EasyMock.expectLastCall();
-		userMessenger.notifyUser(InventoryManager.UNEQUIP_ITEM + "Sword" + InventoryManager.PERIOD);
-		EasyMock.expectLastCall();
-		inventoryManager.setUserMessenger(userMessenger);
-		EasyMock.replay(userMessenger);
-		
 		inventoryManager.equipItem(gameState, equipment);
 		assertEquals(1, gameState.getCharacter().getEquippedItems().size());
 		inventoryManager.unequipItem(gameState, equipment);
 		assertEquals(0, gameState.getCharacter().getEquippedItems().size());
-		
-		EasyMock.verify(userMessenger);
-		EasyMock.reset(userMessenger);
 	}
 	
 	@Test
@@ -166,18 +123,6 @@ public class InventoryManagerTest {
 		GameCharacter character = new GameCharacter();
 		gameState.setCharacter(character);
 		
-		userMessenger.notifyUser(InventoryManager.EQUIP_ITEM + "Sword" + InventoryManager.PERIOD);
-		EasyMock.expectLastCall();
-		userMessenger.notifyUser(InventoryManager.EQUIP_ITEM + "Mace" + InventoryManager.PERIOD);
-		EasyMock.expectLastCall();
-		userMessenger.notifyUser(InventoryManager.EQUIP_ITEM + "Wand" + InventoryManager.PERIOD);
-		EasyMock.expectLastCall();
-		userMessenger.notifyUser(InventoryManager.UNEQUIP_ITEM + "Sword" + InventoryManager.PERIOD);
-		EasyMock.expectLastCall();
-		EasyMock.replay(userMessenger);
-		
-		inventoryManager.setUserMessenger(userMessenger);
-		
 		inventoryManager.equipItem(gameState, equipment2);
 		inventoryManager.equipItem(gameState, equipment);
 		inventoryManager.equipItem(gameState, equipment3);
@@ -187,9 +132,6 @@ public class InventoryManagerTest {
 		assertEquals(2, gameState.getCharacter().getEquippedItems().size());
 		assertEquals("Mace", gameState.getCharacter().getEquippedItems().get(0).getName());
 		assertEquals("Wand", gameState.getCharacter().getEquippedItems().get(1).getName());
-		
-		EasyMock.verify(userMessenger);
-		EasyMock.reset(userMessenger);
 	}
 	
 	@Test
