@@ -23,14 +23,14 @@ public class Movement {
 		gameState.setxPosition(gameState.getxPosition() - 1);
 	}
 	
-	protected void resolveMovementEncounters (GameState gameState) {
-		Encounter encounter = randomEncounterGenerator.rollEncounter();
-		encounter.resolveEncounter(gameState);
-	}
-	
 	public void moveSouth(GameState gameState) {
 		resolveMovementEncounters(gameState);
 		gameState.setyPosition(gameState.getyPosition() - 1);
+	}
+	
+	protected void resolveMovementEncounters (GameState gameState) {
+		Encounter encounter = randomEncounterGenerator.rollEncounter();
+		encounter.resolveEncounter(gameState);
 	}
 	
 	public RandomEncounterGenerator getRandomEncounterGenerator() {
