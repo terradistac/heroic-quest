@@ -87,6 +87,7 @@ public class InventoryManagerTest {
 		assertEquals("Potion of Firebreathing", gameState.getItems().get(2).getName());
 		
 		EasyMock.verify(userMessenger);
+		EasyMock.reset(userMessenger);
 	}
 	
 	@Test
@@ -130,6 +131,7 @@ public class InventoryManagerTest {
 		assertTrue(gameState.getCharacter().getEquippedItems().contains(equipment));
 		
 		EasyMock.verify(userMessenger);
+		EasyMock.reset(userMessenger);
 	}
 	
 	@Test
@@ -187,6 +189,7 @@ public class InventoryManagerTest {
 		assertEquals("Wand", gameState.getCharacter().getEquippedItems().get(1).getName());
 		
 		EasyMock.verify(userMessenger);
+		EasyMock.reset(userMessenger);
 	}
 	
 	@Test
