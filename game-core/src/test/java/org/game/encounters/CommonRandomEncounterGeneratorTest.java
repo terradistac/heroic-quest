@@ -23,7 +23,7 @@ public class CommonRandomEncounterGeneratorTest {
 		EasyMock.expect(generator.getRandomNumber()).andReturn(3);
 		EasyMock.replay(generator);
 		
-		assertEquals(null, generator.rollEncounter());
+		assertEquals(NonEventEncounter.class, generator.rollEncounter().getClass());
 		EasyMock.verify(generator);
 	}
 }
