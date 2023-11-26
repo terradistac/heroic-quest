@@ -1,4 +1,4 @@
-package org.game.action;
+package org.game.action.inventory;
 
 import java.util.Map;
 import java.util.Set;

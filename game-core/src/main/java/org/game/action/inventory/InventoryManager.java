@@ -1,4 +1,4 @@
-package org.game.action;
+package org.game.action.inventory;
 
 import org.game.items.ConsumableItem;
 import org.game.items.EquipmentItem;

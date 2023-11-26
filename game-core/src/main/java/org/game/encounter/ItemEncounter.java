@@ -1,4 +1,4 @@
-package org.game.encounters;
+package org.game.encounter;
 
 import org.game.items.Item;
 import org.game.items.ItemGenerator;

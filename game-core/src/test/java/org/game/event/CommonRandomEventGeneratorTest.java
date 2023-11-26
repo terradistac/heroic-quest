@@ -1,15 +1,18 @@
-package org.game.encounters;
+package org.game.event;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.easymock.EasyMock;
+import org.game.encounter.ItemEncounter;
+import org.game.encounter.NonEventEncounter;
+import org.game.event.CommonRandomEventGenerator;
 import org.junit.jupiter.api.Test;
 
-public class CommonRandomEncounterGeneratorTest {
+public class CommonRandomEventGeneratorTest {
 	
 	@Test
 	public void testRollEncounter_itemEncounter() {
-		CommonRandomEncounterGenerator generator = EasyMock.partialMockBuilder(CommonRandomEncounterGenerator.class).addMockedMethod("getRandomNumber").createMock();
+		CommonRandomEventGenerator generator = EasyMock.partialMockBuilder(CommonRandomEventGenerator.class).addMockedMethod("getRandomNumber").createMock();
 		EasyMock.expect(generator.getRandomNumber()).andReturn(2);
 		EasyMock.replay(generator);
 		
@@ -19,7 +22,7 @@ public class CommonRandomEncounterGeneratorTest {
 	
 	@Test
 	public void testRollEncounter_null() {
-		CommonRandomEncounterGenerator generator = EasyMock.partialMockBuilder(CommonRandomEncounterGenerator.class).addMockedMethod("getRandomNumber").createMock();
+		CommonRandomEventGenerator generator = EasyMock.partialMockBuilder(CommonRandomEventGenerator.class).addMockedMethod("getRandomNumber").createMock();
 		EasyMock.expect(generator.getRandomNumber()).andReturn(3);
 		EasyMock.replay(generator);
 		

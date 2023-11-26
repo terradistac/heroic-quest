@@ -1,4 +1,4 @@
-package org.game.action;
+package org.game.action.movement;
 
 import org.game.messenging.UserMessenger;
 import org.game.state.GameState;

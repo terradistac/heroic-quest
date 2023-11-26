@@ -1,11 +1,13 @@
-package org.game.encounters;
+package org.game.event;
 
 import java.util.Random;
 
+import org.game.encounter.Encounter;
+import org.game.encounter.EncounterFactory;
 import org.game.items.CommonItemGenerator;
 import org.game.items.ItemGeneratorFactory;
 
-public class CommonRandomEncounterGenerator implements RandomEncounterGenerator {
+public class CommonRandomEventGenerator implements RandomEventGenerator {
 
 	@Override
 	public Encounter rollEncounter() {

@@ -1,12 +1,12 @@
-package org.game.action;
+package org.game.action.movement;
 
-import org.game.encounters.Encounter;
-import org.game.encounters.RandomEncounterGenerator;
+import org.game.encounter.Encounter;
+import org.game.event.RandomEventGenerator;
 import org.game.state.GameState;
 
 public class WildernessMovementWrapper implements Movement {
 	
-	private RandomEncounterGenerator randomEncounterGenerator;
+	private RandomEventGenerator randomEncounterGenerator;
 	private Movement movement;
 	
 	public WildernessMovementWrapper (Movement movement) {
@@ -42,11 +42,11 @@ public class WildernessMovementWrapper implements Movement {
 		encounter.resolveEncounter(gameState);
 	}
 	
-	public RandomEncounterGenerator getRandomEncounterGenerator() {
+	public RandomEventGenerator getRandomEncounterGenerator() {
 		return randomEncounterGenerator;
 	}
 
-	public void setRandomEncounterGenerator(RandomEncounterGenerator randomEncounterGenerator) {
+	public void setRandomEncounterGenerator(RandomEventGenerator randomEncounterGenerator) {
 		this.randomEncounterGenerator = randomEncounterGenerator;
 	}
 

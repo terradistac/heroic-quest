@@ -1,8 +1,9 @@
-package org.game.encounters;
+package org.game.encounter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.easymock.EasyMock;
+import org.game.encounter.ItemEncounter;
 import org.game.items.CommonItemGenerator;
 import org.game.items.ConsumableItem;
 import org.game.items.ItemGenerator;
