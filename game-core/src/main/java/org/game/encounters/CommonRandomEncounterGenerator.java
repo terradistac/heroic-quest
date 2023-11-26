@@ -13,7 +13,9 @@ public class CommonRandomEncounterGenerator implements RandomEncounterGenerator 
 		
 		if (this.getRandomNumber() <= 2 ) {
 			encounter = new EncounterFactory().generateCommonItemEncounter();
-		} 
+		}  else {
+			encounter = new EncounterFactory().generateNonEventEncounter();
+		}
 		return encounter;
 	}
 	

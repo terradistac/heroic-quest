@@ -2,7 +2,6 @@ package org.game.encounters;
 
 import org.game.items.Item;
 import org.game.items.ItemGenerator;
-import org.game.items.ItemGeneratorFactory;
 import org.game.messenging.UserMessenger;
 import org.game.state.GameState;
 

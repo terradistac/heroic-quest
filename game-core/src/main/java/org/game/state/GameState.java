@@ -9,8 +9,8 @@ public class GameState {
 	
 	private GameCharacter character;
 	private List<Item> items = new ArrayList<Item>();
-	private Integer xPosition;
-	private Integer yPosition;
+	private Integer xPosition = 0;
+	private Integer yPosition = 0;
 	
 	public GameCharacter getCharacter() {
 		return character;
