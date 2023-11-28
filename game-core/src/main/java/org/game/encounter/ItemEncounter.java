@@ -7,17 +7,17 @@ import org.game.state.GameState;
 
 public class ItemEncounter implements Encounter {
 	
-	protected static final String PICK_UP_ITEM = "You picked up a ";
+	protected static final String FOUND_ITEM = "You found a ";
 	protected static final String PERIOD = ".";
 	
 	private ItemGenerator itemGenerator;
 	private UserMessenger userMessenger;
 
 	@Override
-	public void resolveEncounter(GameState gameState) {
+	public void resolveEncounter() {
 		Item item = itemGenerator.rollForRandomItem();
-		gameState.getItems().add(item);
-		userMessenger.notifyUser(PICK_UP_ITEM + item.getName() + PERIOD);
+		GameState.getInstance().getItems().add(item);
+		userMessenger.notifyUser(FOUND_ITEM + item.getName() + PERIOD);
 	}
 
 	public ItemGenerator getItemGenerator() {

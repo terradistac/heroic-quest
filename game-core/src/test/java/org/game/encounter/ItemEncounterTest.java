@@ -24,13 +24,13 @@ public class ItemEncounterTest {
 		ItemEncounter itemEncounter = new ItemEncounter();
 		itemEncounter.setItemGenerator(itemGenerator);
 		itemEncounter.setUserMessenger(userMessenger);
-		GameState gameState = new GameState();
+		GameState gameState = GameState.getInstance();
 		
-		userMessenger.notifyUser(ItemEncounter.PICK_UP_ITEM + "Potion" + ItemEncounter.PERIOD);
+		userMessenger.notifyUser(ItemEncounter.FOUND_ITEM + "Potion" + ItemEncounter.PERIOD);
 		EasyMock.replay(userMessenger);
 		assertEquals(0, gameState.getItems().size());
 		
-		itemEncounter.resolveEncounter(gameState);
+		itemEncounter.resolveEncounter();
 		
 		assertEquals(1, gameState.getItems().size());
 		EasyMock.verify(userMessenger);

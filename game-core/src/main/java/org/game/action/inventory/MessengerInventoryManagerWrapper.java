@@ -21,30 +21,30 @@ public class MessengerInventoryManagerWrapper implements InventoryManager {
 	}
 
 	@Override
-	public void applyEffect(GameState gameState, ConsumableItem item) {
+	public void applyEffect(ConsumableItem item) {
 		userMessenger.notifyUser(USE_ITEM + item.getName() + PERIOD);
-		this.inventoryManager.applyEffect(gameState, item);
+		this.inventoryManager.applyEffect(item);
 	}
 
 	@Override
-	public void equipItem(GameState gameState, EquipmentItem item) {
-		if (!gameState.getCharacter().getEquippedItems().contains(item)) {
+	public void equipItem(EquipmentItem item) {
+		if (!GameState.getInstance().getCharacter().getEquippedItems().contains(item)) {
 			userMessenger.notifyUser(EQUIP_ITEM + item.getName() + PERIOD); 
 		}
-		this.inventoryManager.equipItem(gameState, item);
+		this.inventoryManager.equipItem(item);
 	}
 
 	@Override
-	public void unequipItem(GameState gameState, EquipmentItem item) {
-		if (gameState.getCharacter().getEquippedItems().contains(item)) {
+	public void unequipItem(EquipmentItem item) {
+		if (GameState.getInstance().getCharacter().getEquippedItems().contains(item)) {
 			userMessenger.notifyUser(UNEQUIP_ITEM + item.getName() + PERIOD);
 		}
-		this.inventoryManager.unequipItem(gameState, item);
+		this.inventoryManager.unequipItem(item);
 	}
 	
 	@Override
-	public void addToInventory(GameState gameState, Item item) {
-		this.inventoryManager.addToInventory(gameState, item);
+	public void addToInventory(Item item) {
+		this.inventoryManager.addToInventory(item);
 	}
 
 	public UserMessenger getUserMessenger() {

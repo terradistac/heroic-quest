@@ -20,26 +20,26 @@ public class MessengerMovementWrapper implements Movement {
 	private UserMessenger userMessenger;
 
 	@Override
-	public void moveNorth(GameState gameState) {
-		movement.moveNorth(gameState);
+	public void moveNorth() {
+		movement.moveNorth();
 		userMessenger.notifyUser(MOVE + NORTH + PERIOD);
 	}
 
 	@Override
-	public void moveSouth(GameState gameState) {
-		movement.moveSouth(gameState);
+	public void moveSouth() {
+		movement.moveSouth();
 		userMessenger.notifyUser(MOVE + SOUTH + PERIOD);
 	}
 
 	@Override
-	public void moveWest(GameState gameState) {
-		movement.moveWest(gameState);
+	public void moveWest() {
+		movement.moveWest();
 		userMessenger.notifyUser(MOVE + WEST + PERIOD);
 	}
 
 	@Override
-	public void moveEast(GameState gameState) {
-		movement.moveEast(gameState);
+	public void moveEast() {
+		movement.moveEast();
 		userMessenger.notifyUser(MOVE + EAST + PERIOD);
 	}
 

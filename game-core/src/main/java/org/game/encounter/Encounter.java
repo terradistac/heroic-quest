@@ -4,6 +4,6 @@ import org.game.state.GameState;
 
 public interface Encounter {
 	
-	public void resolveEncounter(GameState gameState);
+	public void resolveEncounter();
 
 }

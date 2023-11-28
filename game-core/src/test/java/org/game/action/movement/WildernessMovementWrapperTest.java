@@ -9,6 +9,7 @@ import org.game.action.movement.WildernessMovementWrapper;
 import org.game.encounter.Encounter;
 import org.game.event.RandomEventGenerator;
 import org.game.state.GameState;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 public class WildernessMovementWrapperTest {
@@ -18,120 +19,109 @@ public class WildernessMovementWrapperTest {
 	@Test
 	public void testMoveResolveEncounter() {
 		WildernessMovementWrapper movement = new WildernessMovementWrapper(basicMovement);
-		GameState gameState = new GameState();
 		RandomEventGenerator encounterGenerator = EasyMock.createMock(RandomEventGenerator.class);
 		Encounter encounter = EasyMock.createMock(Encounter.class);
 		
 		movement.setRandomEncounterGenerator(encounterGenerator);
 		
 		EasyMock.expect(encounterGenerator.rollEncounter()).andReturn(encounter);
-		encounter.resolveEncounter(gameState);
+		encounter.resolveEncounter();
 		EasyMock.expectLastCall();
 		EasyMock.replay(encounterGenerator, encounter);
 		
-		movement.resolveMovementEncounters(gameState);
+		movement.resolveMovementEncounters();
 		
 		EasyMock.verify(encounterGenerator, encounter);
 	}
 	
 	@Test
 	public void testMoveNorth() {
-		GameState gameState = new GameState();
 		WildernessMovementWrapper movement = new WildernessMovementWrapper(basicMovement);
 		
 		RandomEventGenerator encounterGenerator = EasyMock.createMock(RandomEventGenerator.class);
 		Encounter encounter = EasyMock.createMock(Encounter.class);
 		
 		EasyMock.expect(encounterGenerator.rollEncounter()).andReturn(encounter);
-		encounter.resolveEncounter(gameState);
+		encounter.resolveEncounter();
 		EasyMock.expectLastCall();
 		EasyMock.replay(encounterGenerator, encounter);
 		
 		movement.setRandomEncounterGenerator(encounterGenerator);
 		
-		gameState.setxPosition(0);
-		gameState.setyPosition(0);
+		movement.moveNorth();
 		
-		movement.moveNorth(gameState);
-		
-		assertEquals(0, gameState.getxPosition());
-		assertEquals(1, gameState.getyPosition());
+		assertEquals(0, GameState.getInstance().getxPosition());
+		assertEquals(1, GameState.getInstance().getyPosition());
 		
 	}
 	
 	@Test
 	public void testMoveEast() {
-		GameState gameState = new GameState();
 		WildernessMovementWrapper movement = new WildernessMovementWrapper(basicMovement);
 		
 		RandomEventGenerator encounterGenerator = EasyMock.createMock(RandomEventGenerator.class);
 		Encounter encounter = EasyMock.createMock(Encounter.class);
 		
 		EasyMock.expect(encounterGenerator.rollEncounter()).andReturn(encounter);
-		encounter.resolveEncounter(gameState);
+		encounter.resolveEncounter();
 		EasyMock.expectLastCall();
 		EasyMock.replay(encounterGenerator, encounter);
 		
 		movement.setRandomEncounterGenerator(encounterGenerator);
 		
-		gameState.setxPosition(0);
-		gameState.setyPosition(0);
+		movement.moveEast();
 		
-		movement.moveEast(gameState);
-		
-		assertEquals(1, gameState.getxPosition());
-		assertEquals(0, gameState.getyPosition());
+		assertEquals(1, GameState.getInstance().getxPosition());
+		assertEquals(0, GameState.getInstance().getyPosition());
 		
 	}
 	
 	@Test
 	public void testMoveWest() {
-		GameState gameState = new GameState();
 		WildernessMovementWrapper movement = new WildernessMovementWrapper(basicMovement);
 		
 		RandomEventGenerator encounterGenerator = EasyMock.createMock(RandomEventGenerator.class);
 		Encounter encounter = EasyMock.createMock(Encounter.class);
 		
 		EasyMock.expect(encounterGenerator.rollEncounter()).andReturn(encounter);
-		encounter.resolveEncounter(gameState);
+		encounter.resolveEncounter();
 		EasyMock.expectLastCall();
 		EasyMock.replay(encounterGenerator, encounter);
 		
 		movement.setRandomEncounterGenerator(encounterGenerator);
 		
-		gameState.setxPosition(0);
-		gameState.setyPosition(0);
+		movement.moveWest();
 		
-		movement.moveWest(gameState);
-		
-		assertEquals(-1, gameState.getxPosition());
-		assertEquals(0, gameState.getyPosition());
+		assertEquals(-1, GameState.getInstance().getxPosition());
+		assertEquals(0, GameState.getInstance().getyPosition());
 		
 	}
 	
 	@Test
 	public void testMoveSouth() {
-		GameState gameState = new GameState();
 		WildernessMovementWrapper movement = new WildernessMovementWrapper(basicMovement);
 		
 		RandomEventGenerator encounterGenerator = EasyMock.createMock(RandomEventGenerator.class);
 		Encounter encounter = EasyMock.createMock(Encounter.class);
 		
 		EasyMock.expect(encounterGenerator.rollEncounter()).andReturn(encounter);
-		encounter.resolveEncounter(gameState);
+		encounter.resolveEncounter();
 		EasyMock.expectLastCall();
 		EasyMock.replay(encounterGenerator, encounter);
 		
 		movement.setRandomEncounterGenerator(encounterGenerator);
 		
-		gameState.setxPosition(0);
-		gameState.setyPosition(0);
+		movement.moveSouth();
 		
-		movement.moveSouth(gameState);
+		assertEquals(0, GameState.getInstance().getxPosition());
+		assertEquals(-1, GameState.getInstance().getyPosition());
 		
-		assertEquals(0, gameState.getxPosition());
-		assertEquals(-1, gameState.getyPosition());
-		
+	}
+	
+	@AfterEach
+	public void resetGameState() {
+		GameState.getInstance().setxPosition(0);
+		GameState.getInstance().setyPosition(0);
 	}
 
 }

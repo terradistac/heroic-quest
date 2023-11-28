@@ -3,6 +3,7 @@ package org.game.action.inventory;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,6 +17,7 @@ import org.game.items.JunkItem;
 import org.game.messenging.UserMessenger;
 import org.game.state.GameCharacter;
 import org.game.state.GameState;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 public class BasicInventoryManagerTest {
@@ -24,12 +26,12 @@ public class BasicInventoryManagerTest {
 	
 	@Test
 	public void testAddToInventory() {
-		GameState gameState = new GameState();
+		GameState gameState = GameState.getInstance();
 		TestItem item = new TestItem("Test");
 		
 		assertEquals(0, gameState.getItems().size());
 		
-		inventoryManager.addToInventory(gameState, item);
+		inventoryManager.addToInventory(item);
 		
 		assertEquals(1, gameState.getItems().size());
 		assertEquals("Test", gameState.getItems().get(0).getName());
@@ -38,14 +40,14 @@ public class BasicInventoryManagerTest {
 	@Test
 	public void testApplyEffect_potionInInventory() {
 		ConsumableItem potion = new ConsumableItem("Potion of Healing", 5);
-		GameState gameState = new GameState();
+		GameState gameState = GameState.getInstance();
 		GameCharacter gameCharacter = new GameCharacter();
 		gameCharacter.setHealthPoints(5);
 		gameState.setCharacter(gameCharacter);
 		gameState.getItems().add(potion);
 		
 		assertEquals(1, gameState.getItems().size());
-		inventoryManager.applyEffect(gameState, potion);
+		inventoryManager.applyEffect(potion);
 		assertEquals(10, gameState.getCharacter().getHealthPoints());
 		assertEquals(0, gameState.getItems().size());
 	}
@@ -57,7 +59,7 @@ public class BasicInventoryManagerTest {
 		JunkItem junkItem = new JunkItem("Old Boot");
 		ConsumableItem potion2 = new ConsumableItem("Potion of Firebreathing", 0);
 		
-		GameState gameState = new GameState();
+		GameState gameState = GameState.getInstance();
 		GameCharacter gameCharacter = new GameCharacter();
 		gameCharacter.setHealthPoints(5);
 		gameState.setCharacter(gameCharacter);
@@ -67,7 +69,7 @@ public class BasicInventoryManagerTest {
 		gameState.getItems().add(potion2);
 		
 		assertEquals(4, gameState.getItems().size());
-		inventoryManager.applyEffect(gameState, potion);
+		inventoryManager.applyEffect(potion);
 		assertEquals(3, gameState.getItems().size());
 		assertEquals("Potion of Invisibility", gameState.getItems().get(0).getName());
 		assertEquals("Old Boot", gameState.getItems().get(1).getName());
@@ -77,12 +79,12 @@ public class BasicInventoryManagerTest {
 	@Test
 	public void testEquipItem() {
 		EquipmentItem equipment = new EquipmentItem("Sword", constructStatAttributes());
-		GameState gameState = new GameState();
+		GameState gameState = GameState.getInstance();
 		GameCharacter character = new GameCharacter();
 		gameState.setCharacter(character);
 		
 		assertEquals(0, gameState.getCharacter().getEquippedItems().size());
-		inventoryManager.equipItem(gameState, equipment);
+		inventoryManager.equipItem(equipment);
 		assertEquals(1, gameState.getCharacter().getEquippedItems().size());
 		assertTrue(gameState.getCharacter().getEquippedItems().contains(equipment));
 	}
@@ -90,13 +92,13 @@ public class BasicInventoryManagerTest {
 	@Test
 	public void equipItemDoesNotDuplicateAdd() {
 		EquipmentItem equipment = new EquipmentItem("Sword", constructStatAttributes());
-		GameState gameState = new GameState();
+		GameState gameState = GameState.getInstance();
 		GameCharacter character = new GameCharacter();
 		gameState.setCharacter(character);
 		
-		inventoryManager.equipItem(gameState, equipment);
+		inventoryManager.equipItem(equipment);
 		assertEquals(1, gameState.getCharacter().getEquippedItems().size());
-		inventoryManager.equipItem(gameState, equipment);
+		inventoryManager.equipItem(equipment);
 		assertEquals(1, gameState.getCharacter().getEquippedItems().size());
 		assertTrue(gameState.getCharacter().getEquippedItems().contains(equipment));
 	}
@@ -104,13 +106,13 @@ public class BasicInventoryManagerTest {
 	@Test
 	public void testUnequipItem() {
 		EquipmentItem equipment = new EquipmentItem("Sword", constructStatAttributes());
-		GameState gameState = new GameState();
+		GameState gameState = GameState.getInstance();
 		GameCharacter character = new GameCharacter();
 		gameState.setCharacter(character);
 		
-		inventoryManager.equipItem(gameState, equipment);
+		inventoryManager.equipItem(equipment);
 		assertEquals(1, gameState.getCharacter().getEquippedItems().size());
-		inventoryManager.unequipItem(gameState, equipment);
+		inventoryManager.unequipItem(equipment);
 		assertEquals(0, gameState.getCharacter().getEquippedItems().size());
 	}
 	
@@ -119,16 +121,16 @@ public class BasicInventoryManagerTest {
 		EquipmentItem equipment = new EquipmentItem("Sword", constructStatAttributes());
 		EquipmentItem equipment2 = new EquipmentItem("Mace", constructStatAttributes());
 		EquipmentItem equipment3 = new EquipmentItem("Wand", constructStatAttributes());
-		GameState gameState = new GameState();
+		GameState gameState = GameState.getInstance();
 		GameCharacter character = new GameCharacter();
 		gameState.setCharacter(character);
 		
-		inventoryManager.equipItem(gameState, equipment2);
-		inventoryManager.equipItem(gameState, equipment);
-		inventoryManager.equipItem(gameState, equipment3);
+		inventoryManager.equipItem(equipment2);
+		inventoryManager.equipItem(equipment);
+		inventoryManager.equipItem(equipment3);
 		assertEquals(3, gameState.getCharacter().getEquippedItems().size());
 		
-		inventoryManager.unequipItem(gameState, equipment);
+		inventoryManager.unequipItem(equipment);
 		assertEquals(2, gameState.getCharacter().getEquippedItems().size());
 		assertEquals("Mace", gameState.getCharacter().getEquippedItems().get(0).getName());
 		assertEquals("Wand", gameState.getCharacter().getEquippedItems().get(1).getName());
@@ -137,7 +139,7 @@ public class BasicInventoryManagerTest {
 	@Test
 	public void testApplyAttributeEffects() {
 		EquipmentItem equipment = new EquipmentItem("Sword", constructStatAttributes());
-		GameState gameState = new GameState();
+		GameState gameState = GameState.getInstance();
 		GameCharacter character = new GameCharacter();
 		character.setStatAttributes(constructStatAttributes());
 		gameState.setCharacter(character);
@@ -160,7 +162,7 @@ public class BasicInventoryManagerTest {
 	@Test
 	public void testRemoveAttributeEffects() {
 		EquipmentItem equipment = new EquipmentItem("Sword", constructStatAttributes());
-		GameState gameState = new GameState();
+		GameState gameState = GameState.getInstance();
 		GameCharacter character = new GameCharacter();
 		character.setStatAttributes(constructStatAttributes());
 		gameState.setCharacter(character);
@@ -196,6 +198,13 @@ public class BasicInventoryManagerTest {
 			super(name);
 		}
 		
+	}
+	
+	@AfterEach
+	private void resetGameState() {
+		GameState gameState = GameState.getInstance();
+		gameState.setItems(new ArrayList<Item>());
+		gameState.setCharacter(new GameCharacter());
 	}
 	
 }

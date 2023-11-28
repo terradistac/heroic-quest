@@ -7,12 +7,12 @@ import org.game.state.GameState;
 
 public interface InventoryManager {
 	
-	public void applyEffect(GameState gameState, ConsumableItem item);
+	public void applyEffect(ConsumableItem item);
 	
-	public void equipItem(GameState gameState, EquipmentItem item);
+	public void equipItem(EquipmentItem item);
 	
-	public void unequipItem(GameState gameState, EquipmentItem item);
+	public void unequipItem(EquipmentItem item);
 	
-	public void addToInventory(GameState gameState, Item item);
+	public void addToInventory(Item item);
 
 }

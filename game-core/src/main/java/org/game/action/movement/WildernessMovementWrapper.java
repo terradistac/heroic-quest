@@ -14,32 +14,32 @@ public class WildernessMovementWrapper implements Movement {
 	}
 	
 	@Override
-	public void moveNorth(GameState gameState) {
-		resolveMovementEncounters(gameState);
-		this.movement.moveNorth(gameState);
+	public void moveNorth() {
+		resolveMovementEncounters();
+		this.movement.moveNorth();
 	}
 	
 	@Override
-	public void moveEast(GameState gameState) {
-		resolveMovementEncounters(gameState);
-		this.movement.moveEast(gameState);
+	public void moveEast() {
+		resolveMovementEncounters();
+		this.movement.moveEast();
 	}
 	
 	@Override
-	public void moveWest(GameState gameState) {
-		resolveMovementEncounters(gameState);
-		this.movement.moveWest(gameState);
+	public void moveWest() {
+		resolveMovementEncounters();
+		this.movement.moveWest();
 	}
 	
 	@Override
-	public void moveSouth(GameState gameState) {
-		resolveMovementEncounters(gameState);
-		this.movement.moveSouth(gameState);
+	public void moveSouth() {
+		resolveMovementEncounters();
+		this.movement.moveSouth();
 	}
 	
-	protected void resolveMovementEncounters (GameState gameState) {
+	protected void resolveMovementEncounters () {
 		Encounter encounter = randomEncounterGenerator.rollEncounter();
-		encounter.resolveEncounter(gameState);
+		encounter.resolveEncounter();
 	}
 	
 	public RandomEventGenerator getRandomEncounterGenerator() {

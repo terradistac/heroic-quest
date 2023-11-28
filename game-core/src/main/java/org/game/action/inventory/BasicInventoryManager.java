@@ -14,35 +14,35 @@ import org.game.state.GameState;
 public class BasicInventoryManager implements InventoryManager {
 	
 	@Override
-	public void applyEffect(GameState gameState, ConsumableItem item) {
-		int initialHealth = gameState.getCharacter().getHealthPoints();
-		gameState.getCharacter().setHealthPoints(initialHealth + item.getHealingPotency());
-		if (gameState.getItems().contains(item)) {
-			gameState.getItems().remove(item);
+	public void applyEffect(ConsumableItem item) {
+		int initialHealth = GameState.getInstance().getCharacter().getHealthPoints();
+		GameState.getInstance().getCharacter().setHealthPoints(initialHealth + item.getHealingPotency());
+		if (GameState.getInstance().getItems().contains(item)) {
+			GameState.getInstance().getItems().remove(item);
 		}
 	}
 	
 	@Override
-	public void equipItem(GameState gameState, EquipmentItem item) {
-		GameCharacter character = gameState.getCharacter();
+	public void equipItem(EquipmentItem item) {
+		GameCharacter character = GameState.getInstance().getCharacter();
 		if (!character.getEquippedItems().contains(item)) {
-			gameState.getCharacter().getEquippedItems().add(item);
-			applyAttributeEffects(gameState, item);
+			GameState.getInstance().getCharacter().getEquippedItems().add(item);
+			applyAttributeEffects(GameState.getInstance(), item);
 		}
 	}
 
 	@Override
-	public void unequipItem(GameState gameState, EquipmentItem item) {
-		GameCharacter character = gameState.getCharacter();
+	public void unequipItem(EquipmentItem item) {
+		GameCharacter character = GameState.getInstance().getCharacter();
 		if (character.getEquippedItems().contains(item)) {
-			gameState.getCharacter().getEquippedItems().remove(item);
-			removeAttributeEffects(gameState, item);
+			GameState.getInstance().getCharacter().getEquippedItems().remove(item);
+			removeAttributeEffects(GameState.getInstance(), item);
 		}
 	}
 	
 	@Override
-	public void addToInventory(GameState gameState, Item item) {
-		gameState.getItems().add(item);
+	public void addToInventory(Item item) {
+		GameState.getInstance().getItems().add(item);
 	}
 
 	protected void applyAttributeEffects(GameState gameState, EquipmentItem item) {

@@ -17,7 +17,7 @@ import org.game.state.GameState;
 public class UserInterface {
 	
 	public static void main(String[] arguments) throws InterruptedException {
-		GameState gameState = new GameState();
+		GameState gameState = GameState.getInstance();
 		UserMessenger messenger = new UserMessengerFactory().generateSystemOutUserMessenger();
 		
 		InventoryManager inventoryManager = buildInventoryManager(messenger);
@@ -41,16 +41,16 @@ public class UserInterface {
 			}
 			
 			if ("N".equalsIgnoreCase(input)) {
-				movement.moveNorth(gameState);
+				movement.moveNorth();
 			}
 			if ("S".equalsIgnoreCase(input)) {
-				movement.moveSouth(gameState);
+				movement.moveSouth();
 			}
 			if ("E".equalsIgnoreCase(input)) {
-				movement.moveEast(gameState);
+				movement.moveEast();
 			}
 			if ("W".equalsIgnoreCase(input)) {
-				movement.moveWest(gameState);
+				movement.moveWest();
 			}
 			Thread.sleep(100);
 		}

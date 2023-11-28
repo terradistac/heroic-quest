@@ -23,14 +23,13 @@ public class MessengerInventoryManagerWrapperTest {
 	@Test
 	public void testApplyEffect_potionInInventory() {
 		ConsumableItem potion = new ConsumableItem("Potion of Healing", 5);
-		GameState gameState = new GameState();
 		
 		userMessenger.notifyUser(MessengerInventoryManagerWrapper.USE_ITEM + "Potion of Healing" + MessengerInventoryManagerWrapper.PERIOD);
 		EasyMock.expectLastCall();
 		messengerInventoryManager.setUserMessenger(userMessenger);
 		EasyMock.replay(userMessenger);
 		
-		messengerInventoryManager.applyEffect(gameState, potion);
+		messengerInventoryManager.applyEffect(potion);
 		EasyMock.verify(userMessenger);
 		EasyMock.reset(userMessenger);
 	}
@@ -38,16 +37,15 @@ public class MessengerInventoryManagerWrapperTest {
 	@Test
 	public void testEquipItem() {
 		EquipmentItem equipment = new EquipmentItem("Sword", constructStatAttributes());
-		GameState gameState = new GameState();
 		GameCharacter character = new GameCharacter();
-		gameState.setCharacter(character);
+		GameState.getInstance().setCharacter(character);
 		
 		userMessenger.notifyUser(MessengerInventoryManagerWrapper.EQUIP_ITEM + "Sword" + MessengerInventoryManagerWrapper.PERIOD);
 		EasyMock.expectLastCall();
 		messengerInventoryManager.setUserMessenger(userMessenger);
 		EasyMock.replay(userMessenger);
 
-		messengerInventoryManager.equipItem(gameState, equipment);
+		messengerInventoryManager.equipItem(equipment);
 		
 		EasyMock.verify(userMessenger);
 		EasyMock.reset(userMessenger);
@@ -56,16 +54,15 @@ public class MessengerInventoryManagerWrapperTest {
 	@Test
 	public void equipItemDoesNotDuplicateAdd() {
 		EquipmentItem equipment = new EquipmentItem("Sword", constructStatAttributes());
-		GameState gameState = new GameState();
 		GameCharacter character = new GameCharacter();
-		gameState.setCharacter(character);
+		GameState.getInstance().setCharacter(character);
 		
 		EasyMock.replay(userMessenger);
 		
 		messengerInventoryManager.setUserMessenger(userMessenger);
 		
-		gameState.getCharacter().getEquippedItems().add(equipment);
-		messengerInventoryManager.equipItem(gameState, equipment);
+		GameState.getInstance().getCharacter().getEquippedItems().add(equipment);
+		messengerInventoryManager.equipItem(equipment);
 		
 		EasyMock.verify(userMessenger);
 		EasyMock.reset(userMessenger);
@@ -74,18 +71,17 @@ public class MessengerInventoryManagerWrapperTest {
 	@Test
 	public void testUnequipItem() {
 		EquipmentItem equipment = new EquipmentItem("Sword", constructStatAttributes());
-		GameState gameState = new GameState();
 		GameCharacter character = new GameCharacter();
-		gameState.setCharacter(character);
+		GameState.getInstance().setCharacter(character);
 		
 		userMessenger.notifyUser(MessengerInventoryManagerWrapper.UNEQUIP_ITEM + "Sword" + MessengerInventoryManagerWrapper.PERIOD);
 		EasyMock.expectLastCall();
 		messengerInventoryManager.setUserMessenger(userMessenger);
 		EasyMock.replay(userMessenger);
 		
-		gameState.getCharacter().getEquippedItems().add(equipment);
+		GameState.getInstance().getCharacter().getEquippedItems().add(equipment);
 		
-		messengerInventoryManager.unequipItem(gameState, equipment);
+		messengerInventoryManager.unequipItem(equipment);
 		
 		EasyMock.verify(userMessenger);
 		EasyMock.reset(userMessenger);
@@ -96,9 +92,8 @@ public class MessengerInventoryManagerWrapperTest {
 		EquipmentItem equipment = new EquipmentItem("Sword", constructStatAttributes());
 		EquipmentItem equipment2 = new EquipmentItem("Mace", constructStatAttributes());
 		EquipmentItem equipment3 = new EquipmentItem("Wand", constructStatAttributes());
-		GameState gameState = new GameState();
 		GameCharacter character = new GameCharacter();
-		gameState.setCharacter(character);
+		GameState.getInstance().setCharacter(character);
 		
 		userMessenger.notifyUser(MessengerInventoryManagerWrapper.UNEQUIP_ITEM + "Sword" + MessengerInventoryManagerWrapper.PERIOD);
 		EasyMock.expectLastCall();
@@ -106,11 +101,11 @@ public class MessengerInventoryManagerWrapperTest {
 		
 		messengerInventoryManager.setUserMessenger(userMessenger);
 		
-		gameState.getCharacter().getEquippedItems().add(equipment2);
-		gameState.getCharacter().getEquippedItems().add(equipment);
-		gameState.getCharacter().getEquippedItems().add(equipment3);
+		GameState.getInstance().getCharacter().getEquippedItems().add(equipment2);
+		GameState.getInstance().getCharacter().getEquippedItems().add(equipment);
+		GameState.getInstance().getCharacter().getEquippedItems().add(equipment3);
 		
-		messengerInventoryManager.unequipItem(gameState, equipment);
+		messengerInventoryManager.unequipItem(equipment);
 		
 		EasyMock.verify(userMessenger);
 		EasyMock.reset(userMessenger);

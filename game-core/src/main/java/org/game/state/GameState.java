@@ -7,6 +7,19 @@ import org.game.items.Item;
 
 public class GameState {
 	
+	private static GameState gameState;
+	
+	private GameState() {
+		
+	}
+	
+	public static GameState getInstance() {
+		if (gameState == null) {
+			gameState = new GameState();
+		}
+		return gameState;
+	}
+	
 	private GameCharacter character;
 	private List<Item> items = new ArrayList<Item>();
 	private Integer xPosition = 0;

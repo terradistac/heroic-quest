@@ -1,14 +1,12 @@
 package org.game.action.movement;
 
-import org.game.state.GameState;
-
 public interface Movement {
 
-	public void moveNorth(GameState gameState);
+	public void moveNorth();
 	
-	public void moveSouth(GameState gameState);
+	public void moveSouth();
 	
-	public void moveWest(GameState gameState);
+	public void moveWest();
 	
-	public void moveEast(GameState gameState);
+	public void moveEast();
 }

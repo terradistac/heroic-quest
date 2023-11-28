@@ -5,7 +5,7 @@ import org.game.state.GameState;
 public class NonEventEncounter implements Encounter {
 
 	@Override
-	public void resolveEncounter(GameState gameState) {
+	public void resolveEncounter() {
 		
 	}
 

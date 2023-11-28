@@ -5,6 +5,7 @@ import org.game.action.movement.MessengerMovementWrapper;
 import org.game.action.movement.Movement;
 import org.game.messenging.UserMessenger;
 import org.game.state.GameState;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 public class MessengerMovementWrapperTest {
@@ -12,20 +13,20 @@ public class MessengerMovementWrapperTest {
 	UserMessenger messenger = EasyMock.createMock(UserMessenger.class);
 	Movement movement = EasyMock.createMock(Movement.class);
 	MessengerMovementWrapper messengerMovement = new MessengerMovementWrapper(movement);
-	GameState gameState = new GameState();
+	GameState gameState = GameState.getInstance();
 	
 	@Test
 	public void testMoveNorth() {
 		messenger.notifyUser(MessengerMovementWrapper.MOVE + MessengerMovementWrapper.NORTH + MessengerMovementWrapper.PERIOD);
 		EasyMock.expectLastCall();
 		
-		movement.moveNorth(gameState);
+		movement.moveNorth();
 		EasyMock.expectLastCall();
 		
 		EasyMock.replay(messenger, movement);
 		messengerMovement.setUserMessenger(messenger);
 		
-		messengerMovement.moveNorth(gameState);
+		messengerMovement.moveNorth();
 		EasyMock.verify(messenger);
 		EasyMock.reset(messenger, movement);
 	}
@@ -35,14 +36,14 @@ public class MessengerMovementWrapperTest {
 		messenger.notifyUser(MessengerMovementWrapper.MOVE + MessengerMovementWrapper.SOUTH + MessengerMovementWrapper.PERIOD);
 		EasyMock.expectLastCall();
 		
-		movement.moveSouth(gameState);
+		movement.moveSouth();
 		EasyMock.expectLastCall();
 		
 		EasyMock.replay(messenger, movement);
 		
 		messengerMovement.setUserMessenger(messenger);
 		
-		messengerMovement.moveSouth(gameState);
+		messengerMovement.moveSouth();
 		EasyMock.verify(messenger);
 		EasyMock.reset(messenger, movement);
 	}
@@ -52,14 +53,14 @@ public class MessengerMovementWrapperTest {
 		messenger.notifyUser(MessengerMovementWrapper.MOVE + MessengerMovementWrapper.EAST + MessengerMovementWrapper.PERIOD);
 		EasyMock.expectLastCall();
 		
-		movement.moveEast(gameState);
+		movement.moveEast();
 		EasyMock.expectLastCall();
 		
 		EasyMock.replay(messenger, movement);
 		
 		messengerMovement.setUserMessenger(messenger);
 		
-		messengerMovement.moveEast(gameState);
+		messengerMovement.moveEast();
 		EasyMock.verify(messenger);
 		EasyMock.reset(messenger, movement);
 	}
@@ -69,16 +70,22 @@ public class MessengerMovementWrapperTest {
 		messenger.notifyUser(MessengerMovementWrapper.MOVE + MessengerMovementWrapper.WEST + MessengerMovementWrapper.PERIOD);
 		EasyMock.expectLastCall();
 		
-		movement.moveWest(gameState);
+		movement.moveWest();
 		EasyMock.expectLastCall();
 		
 		EasyMock.replay(messenger, movement);
 		
 		messengerMovement.setUserMessenger(messenger);
 		
-		messengerMovement.moveWest(gameState);
+		messengerMovement.moveWest();
 		EasyMock.verify(messenger);
 		EasyMock.reset(messenger, movement);
+	}
+	
+	@AfterEach
+	public void resetGameState() {
+		GameState.getInstance().setxPosition(0);
+		GameState.getInstance().setyPosition(0);
 	}
 
 }
