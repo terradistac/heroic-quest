@@ -35,6 +35,8 @@ public class BasicInventoryManagerTest {
 		
 		assertEquals(1, gameState.getItems().size());
 		assertEquals("Test", gameState.getItems().get(0).getName());
+		
+		resetGameState();
 	}
 	
 	@Test
@@ -50,6 +52,8 @@ public class BasicInventoryManagerTest {
 		inventoryManager.applyEffect(potion);
 		assertEquals(10, gameState.getCharacter().getHealthPoints());
 		assertEquals(0, gameState.getItems().size());
+		
+		resetGameState();
 	}
 	
 	@Test
@@ -74,6 +78,8 @@ public class BasicInventoryManagerTest {
 		assertEquals("Potion of Invisibility", gameState.getItems().get(0).getName());
 		assertEquals("Old Boot", gameState.getItems().get(1).getName());
 		assertEquals("Potion of Firebreathing", gameState.getItems().get(2).getName());
+		
+		resetGameState();
 	}
 	
 	@Test
@@ -87,6 +93,8 @@ public class BasicInventoryManagerTest {
 		inventoryManager.equipItem(equipment);
 		assertEquals(1, gameState.getCharacter().getEquippedItems().size());
 		assertTrue(gameState.getCharacter().getEquippedItems().contains(equipment));
+		
+		resetGameState();
 	}
 	
 	@Test
@@ -101,6 +109,8 @@ public class BasicInventoryManagerTest {
 		inventoryManager.equipItem(equipment);
 		assertEquals(1, gameState.getCharacter().getEquippedItems().size());
 		assertTrue(gameState.getCharacter().getEquippedItems().contains(equipment));
+		
+		resetGameState();
 	}
 	
 	@Test
@@ -114,6 +124,8 @@ public class BasicInventoryManagerTest {
 		assertEquals(1, gameState.getCharacter().getEquippedItems().size());
 		inventoryManager.unequipItem(equipment);
 		assertEquals(0, gameState.getCharacter().getEquippedItems().size());
+		
+		resetGameState();
 	}
 	
 	@Test
@@ -134,6 +146,8 @@ public class BasicInventoryManagerTest {
 		assertEquals(2, gameState.getCharacter().getEquippedItems().size());
 		assertEquals("Mace", gameState.getCharacter().getEquippedItems().get(0).getName());
 		assertEquals("Wand", gameState.getCharacter().getEquippedItems().get(1).getName());
+		
+		resetGameState();
 	}
 	
 	@Test
@@ -157,6 +171,8 @@ public class BasicInventoryManagerTest {
 		assertEquals(6, gameState.getCharacter().getStatAttributes().get(StatAttribute.INTELLIGENCE));
 		assertEquals(8, gameState.getCharacter().getStatAttributes().get(StatAttribute.STRENGTH));
 		assertEquals(10, gameState.getCharacter().getStatAttributes().get(StatAttribute.WISDOM));
+		
+		resetGameState();
 	}
 	
 	@Test
@@ -180,6 +196,8 @@ public class BasicInventoryManagerTest {
 		assertEquals(0, gameState.getCharacter().getStatAttributes().get(StatAttribute.INTELLIGENCE));
 		assertEquals(0, gameState.getCharacter().getStatAttributes().get(StatAttribute.STRENGTH));
 		assertEquals(0, gameState.getCharacter().getStatAttributes().get(StatAttribute.WISDOM));
+		
+		resetGameState();
 	}
 	
 	private Map<StatAttribute, Integer> constructStatAttributes() {
