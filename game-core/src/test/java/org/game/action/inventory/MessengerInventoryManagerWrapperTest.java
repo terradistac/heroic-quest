@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.easymock.EasyMock;
-import org.game.action.inventory.InventoryManager;
-import org.game.action.inventory.MessengerInventoryManagerWrapper;
 import org.game.attributes.StatAttribute;
 import org.game.items.ConsumableItem;
 import org.game.items.EquipmentItem;

@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.easymock.EasyMock;
 import org.game.encounter.ItemEncounter;
 import org.game.encounter.NonEventEncounter;
-import org.game.event.CommonRandomEventGenerator;
 import org.junit.jupiter.api.Test;
 
 public class CommonRandomEventGeneratorTest {

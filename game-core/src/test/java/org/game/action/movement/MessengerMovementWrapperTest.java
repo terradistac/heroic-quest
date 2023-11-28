@@ -1,8 +1,6 @@
 package org.game.action.movement;
 
 import org.easymock.EasyMock;
-import org.game.action.movement.MessengerMovementWrapper;
-import org.game.action.movement.Movement;
 import org.game.messenging.UserMessenger;
 import org.game.state.GameState;
 import org.junit.jupiter.api.AfterEach;

@@ -2,7 +2,6 @@ package org.game.action.movement;
 
 import org.game.encounter.Encounter;
 import org.game.event.RandomEventGenerator;
-import org.game.state.GameState;
 
 public class WildernessMovementWrapper implements Movement {
 	

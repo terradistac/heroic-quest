@@ -4,8 +4,6 @@ import java.util.Random;
 
 import org.game.encounter.Encounter;
 import org.game.encounter.EncounterFactory;
-import org.game.items.CommonItemGenerator;
-import org.game.items.ItemGeneratorFactory;
 
 public class CommonRandomEventGenerator implements RandomEventGenerator {
 

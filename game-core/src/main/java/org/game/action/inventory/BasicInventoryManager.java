@@ -7,7 +7,6 @@ import org.game.attributes.StatAttribute;
 import org.game.items.ConsumableItem;
 import org.game.items.EquipmentItem;
 import org.game.items.Item;
-import org.game.messenging.UserMessenger;
 import org.game.state.GameCharacter;
 import org.game.state.GameState;
 

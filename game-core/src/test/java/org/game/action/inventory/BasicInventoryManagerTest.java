@@ -7,17 +7,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.easymock.EasyMock;
-import org.game.action.inventory.BasicInventoryManager;
 import org.game.attributes.StatAttribute;
 import org.game.items.ConsumableItem;
 import org.game.items.EquipmentItem;
 import org.game.items.Item;
 import org.game.items.JunkItem;
-import org.game.messenging.UserMessenger;
 import org.game.state.GameCharacter;
 import org.game.state.GameState;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 public class BasicInventoryManagerTest {

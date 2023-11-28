@@ -2,7 +2,6 @@ package org.game.encounter;
 
 import org.game.items.CommonItemGenerator;
 import org.game.items.ItemGeneratorFactory;
-import org.game.messenging.SystemOutUserMessenger;
 import org.game.messenging.UserMessenger;
 import org.game.messenging.UserMessengerFactory;
 

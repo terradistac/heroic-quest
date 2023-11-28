@@ -1,7 +1,6 @@
 package org.game.action.movement;
 
 import org.game.messenging.UserMessenger;
-import org.game.state.GameState;
 
 public class MessengerMovementWrapper implements Movement {
 	

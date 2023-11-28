@@ -3,13 +3,9 @@ package org.game.action.movement;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.easymock.EasyMock;
-import org.game.action.movement.BasicMovement;
-import org.game.action.movement.Movement;
-import org.game.action.movement.WildernessMovementWrapper;
 import org.game.encounter.Encounter;
 import org.game.event.RandomEventGenerator;
 import org.game.state.GameState;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 public class WildernessMovementWrapperTest {
