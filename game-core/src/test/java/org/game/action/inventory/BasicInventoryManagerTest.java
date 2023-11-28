@@ -218,7 +218,6 @@ public class BasicInventoryManagerTest {
 		
 	}
 	
-	@AfterEach
 	private void resetGameState() {
 		GameState gameState = GameState.getInstance();
 		gameState.setItems(new ArrayList<Item>());

@@ -32,6 +32,8 @@ public class WildernessMovementWrapperTest {
 		movement.resolveMovementEncounters();
 		
 		EasyMock.verify(encounterGenerator, encounter);
+		
+		resetGameState();
 	}
 	
 	@Test
@@ -53,6 +55,7 @@ public class WildernessMovementWrapperTest {
 		assertEquals(0, GameState.getInstance().getxPosition());
 		assertEquals(1, GameState.getInstance().getyPosition());
 		
+		resetGameState();
 	}
 	
 	@Test
@@ -74,6 +77,7 @@ public class WildernessMovementWrapperTest {
 		assertEquals(1, GameState.getInstance().getxPosition());
 		assertEquals(0, GameState.getInstance().getyPosition());
 		
+		resetGameState();
 	}
 	
 	@Test
@@ -95,6 +99,7 @@ public class WildernessMovementWrapperTest {
 		assertEquals(-1, GameState.getInstance().getxPosition());
 		assertEquals(0, GameState.getInstance().getyPosition());
 		
+		resetGameState();
 	}
 	
 	@Test
@@ -116,9 +121,10 @@ public class WildernessMovementWrapperTest {
 		assertEquals(0, GameState.getInstance().getxPosition());
 		assertEquals(-1, GameState.getInstance().getyPosition());
 		
+		resetGameState();
+		
 	}
 	
-	@AfterEach
 	public void resetGameState() {
 		GameState.getInstance().setxPosition(0);
 		GameState.getInstance().setyPosition(0);
