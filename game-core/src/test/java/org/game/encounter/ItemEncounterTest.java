@@ -26,11 +26,11 @@ public class ItemEncounterTest {
 		
 		userMessenger.notifyUser(ItemEncounter.FOUND_ITEM + "Potion" + ItemEncounter.PERIOD);
 		EasyMock.replay(userMessenger);
-		assertEquals(0, gameState.getItems().size());
+		assertEquals(0, gameState.getFoundItems().size());
 		
 		itemEncounter.resolveEncounter();
 		
-		assertEquals(1, gameState.getItems().size());
+		assertEquals(1, gameState.getFoundItems().size());
 		EasyMock.verify(userMessenger);
 	}
 }

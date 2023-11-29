@@ -25,12 +25,12 @@ public class BasicInventoryManagerTest {
 		GameState gameState = GameState.getInstance();
 		TestItem item = new TestItem("Test");
 		
-		assertEquals(0, gameState.getItems().size());
+		assertEquals(0, gameState.getCharacter().getInventory().size());
 		
 		inventoryManager.addToInventory(item);
 		
-		assertEquals(1, gameState.getItems().size());
-		assertEquals("Test", gameState.getItems().get(0).getName());
+		assertEquals(1, gameState.getCharacter().getInventory().size());
+		assertEquals("Test", gameState.getCharacter().getInventory().get(0).getName());
 		
 		resetGameState();
 	}
@@ -42,12 +42,12 @@ public class BasicInventoryManagerTest {
 		GameCharacter gameCharacter = new GameCharacter();
 		gameCharacter.setHealthPoints(5);
 		gameState.setCharacter(gameCharacter);
-		gameState.getItems().add(potion);
+		gameState.getCharacter().getInventory().add(potion);
 		
-		assertEquals(1, gameState.getItems().size());
+		assertEquals(1, gameState.getCharacter().getInventory().size());
 		inventoryManager.applyEffect(potion);
 		assertEquals(10, gameState.getCharacter().getHealthPoints());
-		assertEquals(0, gameState.getItems().size());
+		assertEquals(0, gameState.getCharacter().getInventory().size());
 		
 		resetGameState();
 	}
@@ -63,17 +63,17 @@ public class BasicInventoryManagerTest {
 		GameCharacter gameCharacter = new GameCharacter();
 		gameCharacter.setHealthPoints(5);
 		gameState.setCharacter(gameCharacter);
-		gameState.getItems().add(potion0);
-		gameState.getItems().add(potion);
-		gameState.getItems().add(junkItem);
-		gameState.getItems().add(potion2);
+		gameState.getCharacter().getInventory().add(potion0);
+		gameState.getCharacter().getInventory().add(potion);
+		gameState.getCharacter().getInventory().add(junkItem);
+		gameState.getCharacter().getInventory().add(potion2);
 		
-		assertEquals(4, gameState.getItems().size());
+		assertEquals(4, gameState.getCharacter().getInventory().size());
 		inventoryManager.applyEffect(potion);
-		assertEquals(3, gameState.getItems().size());
-		assertEquals("Potion of Invisibility", gameState.getItems().get(0).getName());
-		assertEquals("Old Boot", gameState.getItems().get(1).getName());
-		assertEquals("Potion of Firebreathing", gameState.getItems().get(2).getName());
+		assertEquals(3, gameState.getCharacter().getInventory().size());
+		assertEquals("Potion of Invisibility", gameState.getCharacter().getInventory().get(0).getName());
+		assertEquals("Old Boot", gameState.getCharacter().getInventory().get(1).getName());
+		assertEquals("Potion of Firebreathing", gameState.getCharacter().getInventory().get(2).getName());
 		
 		resetGameState();
 	}
@@ -216,7 +216,7 @@ public class BasicInventoryManagerTest {
 	
 	private void resetGameState() {
 		GameState gameState = GameState.getInstance();
-		gameState.setItems(new ArrayList<Item>());
+		gameState.setFoundItems(new ArrayList<Item>());
 		gameState.setCharacter(new GameCharacter());
 	}
 	

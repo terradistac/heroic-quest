@@ -11,6 +11,8 @@ public class MessengerInventoryManagerWrapper implements InventoryManager {
 	protected static final String EQUIP_ITEM = "You equipped the ";
 	protected static final String UNEQUIP_ITEM = "You unequipped the ";
 	protected static final String USE_ITEM = "You used the ";
+	protected static final String ADD_ITEM = "You added the ";
+	protected static final String INVENTORY = " to your inventory.";
 	protected static final String PERIOD = ".";
 	
 	private InventoryManager inventoryManager;
@@ -44,6 +46,7 @@ public class MessengerInventoryManagerWrapper implements InventoryManager {
 	
 	@Override
 	public void addToInventory(Item item) {
+		userMessenger.notifyUser(ADD_ITEM + item.getName() + INVENTORY);
 		this.inventoryManager.addToInventory(item);
 	}
 

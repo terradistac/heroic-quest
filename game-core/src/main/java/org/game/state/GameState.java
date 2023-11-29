@@ -20,10 +20,11 @@ public class GameState {
 		return gameState;
 	}
 	
-	private GameCharacter character;
-	private List<Item> items = new ArrayList<Item>();
+	private GameCharacter character = new GameCharacter();
+	private List<Item> foundItems = new ArrayList<Item>();
 	private Integer xPosition = 0;
 	private Integer yPosition = 0;
+	private boolean run;
 	
 	public GameCharacter getCharacter() {
 		return character;
@@ -31,11 +32,11 @@ public class GameState {
 	public void setCharacter(GameCharacter character) {
 		this.character = character;
 	}
-	public List<Item> getItems() {
-		return items;
+	public List<Item> getFoundItems() {
+		return foundItems;
 	}
-	public void setItems(List<Item> items) {
-		this.items = items;
+	public void setFoundItems(List<Item> items) {
+		this.foundItems = items;
 	}
 	public Integer getxPosition() {
 		return xPosition;
@@ -48,6 +49,14 @@ public class GameState {
 	}
 	public void setyPosition(Integer yPosition) {
 		this.yPosition = yPosition;
+	}
+
+	public boolean isRun() {
+		return run;
+	}
+
+	public void setRun(boolean run) {
+		this.run = run;
 	}
 
 }

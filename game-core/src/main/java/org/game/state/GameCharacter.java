@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.game.attributes.StatAttribute;
 import org.game.items.EquipmentItem;
+import org.game.items.Item;
 
 public class GameCharacter {
 	
@@ -14,6 +15,7 @@ public class GameCharacter {
 	private int healthPoints;
 	private Map<StatAttribute, Integer> statAttributes = new HashMap<>();
 	private List<EquipmentItem> equippedItems = new ArrayList<>();
+	private List<Item> inventory = new ArrayList<>();
 	
 	public GameCharacter() {
 		statAttributes.put(StatAttribute.CONSTITUTION, 0);
@@ -47,6 +49,14 @@ public class GameCharacter {
 	}
 	public void setEquippedItems(List<EquipmentItem> equippedItems) {
 		this.equippedItems = equippedItems;
+	}
+
+	public List<Item> getInventory() {
+		return inventory;
+	}
+
+	public void setInventory(List<Item> inventory) {
+		this.inventory = inventory;
 	}
 
 }

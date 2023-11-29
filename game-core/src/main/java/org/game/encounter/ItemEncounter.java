@@ -16,7 +16,7 @@ public class ItemEncounter implements Encounter {
 	@Override
 	public void resolveEncounter() {
 		Item item = itemGenerator.rollForRandomItem();
-		GameState.getInstance().getItems().add(item);
+		GameState.getInstance().getFoundItems().add(item);
 		userMessenger.notifyUser(FOUND_ITEM + item.getName() + PERIOD);
 	}
 

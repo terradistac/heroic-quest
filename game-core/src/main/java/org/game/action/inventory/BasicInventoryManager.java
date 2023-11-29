@@ -16,8 +16,8 @@ public class BasicInventoryManager implements InventoryManager {
 	public void applyEffect(ConsumableItem item) {
 		int initialHealth = GameState.getInstance().getCharacter().getHealthPoints();
 		GameState.getInstance().getCharacter().setHealthPoints(initialHealth + item.getHealingPotency());
-		if (GameState.getInstance().getItems().contains(item)) {
-			GameState.getInstance().getItems().remove(item);
+		if (GameState.getInstance().getCharacter().getInventory().contains(item)) {
+			GameState.getInstance().getCharacter().getInventory().remove(item);
 		}
 	}
 	
@@ -41,7 +41,7 @@ public class BasicInventoryManager implements InventoryManager {
 	
 	@Override
 	public void addToInventory(Item item) {
-		GameState.getInstance().getItems().add(item);
+		GameState.getInstance().getCharacter().getInventory().add(item);
 	}
 
 	protected void applyAttributeEffects(GameState gameState, EquipmentItem item) {
