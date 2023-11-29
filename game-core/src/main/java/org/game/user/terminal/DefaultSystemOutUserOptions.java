@@ -1,4 +1,4 @@
-package org.game.user;
+package org.game.user.terminal;
 
 import java.util.Scanner;
 
@@ -13,15 +13,16 @@ import org.game.event.CommonRandomEventGenerator;
 import org.game.messenging.UserMessenger;
 import org.game.messenging.UserMessengerFactory;
 import org.game.state.GameState;
+import org.game.user.UserOptions;
 
-public class DefaultUserOptions implements UserOptions {
+public class DefaultSystemOutUserOptions implements UserOptions {
 
 	@Override
 	public void provideAvailableUserInputOptions() {
 		UserMessenger messenger = new UserMessengerFactory().generateSystemOutUserMessenger();
 		Movement movement = buildMovement(messenger);
 
-		Scanner sc = new Scanner(System.in);
+		Scanner sc = SystemOutUserInterface.getScanner();
 		String input = "";
 		input = sc.next();
 
@@ -40,9 +41,12 @@ public class DefaultUserOptions implements UserOptions {
 		if ("W".equalsIgnoreCase(input)) {
 			movement.moveWest();
 		}
+		if ("Inventory".equalsIgnoreCase(input) || "i".equalsIgnoreCase(input)) {
+			SystemOutUserInterface.setUserOptions(new InventorySystemOutUserOptions());
+		}
 		
 		if ("help".equalsIgnoreCase(input)) {
-			messenger.notifyUser("N/S/E/W : move North, South, East or West.");
+			messenger.notifyUser("Type N/S/E/W to move North, South, East or West.");
 			messenger.notifyUser("Type \"(I)nventory\" to access your inventory.");
 			messenger.notifyUser("Type \"Quit\" to quit the game.");
 		}
@@ -59,14 +63,6 @@ public class DefaultUserOptions implements UserOptions {
 		MessengerMovementWrapper movement = new MessengerMovementWrapper(movementWrapper);
 		movement.setUserMessenger(messenger);
 		return movement;
-	}
-
-	private static InventoryManager buildInventoryManager(UserMessenger messenger) {
-		BasicInventoryManager basicInventoryManager = new BasicInventoryManager();
-		MessengerInventoryManagerWrapper inventoryManager = new MessengerInventoryManagerWrapper(basicInventoryManager);
-		inventoryManager.setUserMessenger(messenger);
-
-		return basicInventoryManager;
 	}
 
 }

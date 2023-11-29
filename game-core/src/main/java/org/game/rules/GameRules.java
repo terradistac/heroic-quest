@@ -1,17 +1,16 @@
 package org.game.rules;
 
 import org.game.state.GameState;
-import org.game.user.FoundItemUserOptions;
-import org.game.user.DefaultUserOptions;
 import org.game.user.UserOptions;
+import org.game.user.terminal.FoundItemSystemOutUserOptions;
 
 public class GameRules {
 	
 	public static UserOptions determineAvailableUserOptions() {
 		if (areItemsInQueue()) {
-			return new FoundItemUserOptions();
+			return new FoundItemSystemOutUserOptions();
 		}
-		return new DefaultUserOptions();
+		return null;
 	}
 	protected static boolean areItemsInQueue() {
 		if (!(GameState.getInstance().getFoundItems().size() == 0)) {

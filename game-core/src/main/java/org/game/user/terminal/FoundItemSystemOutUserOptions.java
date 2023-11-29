@@ -1,4 +1,4 @@
-package org.game.user;
+package org.game.user.terminal;
 
 import java.util.Scanner;
 
@@ -8,8 +8,9 @@ import org.game.items.Item;
 import org.game.messenging.SystemOutUserMessenger;
 import org.game.messenging.UserMessenger;
 import org.game.state.GameState;
+import org.game.user.UserOptions;
 
-public class FoundItemUserOptions implements UserOptions {
+public class FoundItemSystemOutUserOptions implements UserOptions {
 
 	@Override
 	public void provideAvailableUserInputOptions() {
@@ -17,7 +18,7 @@ public class FoundItemUserOptions implements UserOptions {
 		MessengerInventoryManagerWrapper inventoryManager = new MessengerInventoryManagerWrapper(new BasicInventoryManager());
 		inventoryManager.setUserMessenger(messenger);
 		
-		Scanner sc = new Scanner(System.in);
+		Scanner sc = SystemOutUserInterface.getScanner();
 		String input = "";
 		for (Item foundItem : GameState.getInstance().getFoundItems()) {
 			messenger.notifyUser("Keep the " + foundItem.getName() + "? Y/N");
@@ -29,6 +30,7 @@ public class FoundItemUserOptions implements UserOptions {
 			}
 		}
 		GameState.getInstance().getFoundItems().clear();
+		SystemOutUserInterface.setUserOptions(new DefaultSystemOutUserOptions());
 	}
 
 }
