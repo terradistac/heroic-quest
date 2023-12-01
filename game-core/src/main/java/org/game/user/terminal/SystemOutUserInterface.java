@@ -31,6 +31,8 @@ public class SystemOutUserInterface {
 			}
 			getUserOptions().provideAvailableUserInputOptions();
 		}
+		
+		messenger.notifyUser("Good bye.");
 	}
 
 	public static UserOptions getUserOptions() {
