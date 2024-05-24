@@ -16,6 +16,8 @@ import org.game.user.UserOptions;
 
 public class InventorySystemOutUserOptions implements UserOptions {
 
+	boolean openingMessageSent = false;
+
 	@Override
 	public void provideAvailableUserInputOptions() {
 		UserMessenger messenger = new UserMessengerFactory().generateSystemOutUserMessenger();
@@ -24,23 +26,25 @@ public class InventorySystemOutUserOptions implements UserOptions {
 		inventoryManager.setUserMessenger(messenger);
 		Scanner sc = SystemOutUserInterface.getScanner();
 		String input = "";
-
-		messenger.notifyUser("You have the following items in your inventory:");
-
 		List<Item> inventoryItems = GameState.getInstance().getCharacter().getInventory();
 		List<EquipmentItem> equippedItems = GameState.getInstance().getCharacter().getEquippedItems();
 
-		int numberInList = 0;
-		for (Item item : inventoryItems) {
-			numberInList = numberInList + 1;
-			String message = numberInList + ": " + item.getName();
-			if (equippedItems.contains(item)) {
-				message.concat(" (Equipped)");
+		if (!openingMessageSent) {
+			messenger.notifyUser("You have the following items in your inventory: \nType \"Help\" for available commands.");
+	
+			int numberInList = 0;
+			for (Item item : inventoryItems) {
+				numberInList = numberInList + 1;
+				String message = numberInList + ": " + item.getName();
+				if (equippedItems.contains(item)) {
+					message.concat(" (Equipped)");
+				}
+				messenger.notifyUser(message);
 			}
-			messenger.notifyUser(message);
+			openingMessageSent = true;
 		}
 
-		input = sc.next();
+		input = sc.nextLine();
 		if (input.equalsIgnoreCase("exit")) {
 			messenger.notifyUser("You closed your bag.");
 			SystemOutUserInterface.setUserOptions(new DefaultSystemOutUserOptions());
