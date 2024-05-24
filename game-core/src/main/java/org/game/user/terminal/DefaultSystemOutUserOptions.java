@@ -2,9 +2,6 @@ package org.game.user.terminal;
 
 import java.util.Scanner;
 
-import org.game.action.inventory.BasicInventoryManager;
-import org.game.action.inventory.InventoryManager;
-import org.game.action.inventory.MessengerInventoryManagerWrapper;
 import org.game.action.movement.BasicMovement;
 import org.game.action.movement.MessengerMovementWrapper;
 import org.game.action.movement.Movement;

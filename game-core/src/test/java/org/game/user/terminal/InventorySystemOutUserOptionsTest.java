@@ -4,48 +4,63 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.game.attributes.StatAttribute;
+import org.game.items.EquipmentItem;
+import org.game.state.GameState;
 import org.junit.jupiter.api.Test;
+import java.util.HashMap;
+import java.util.Map;
 
 public class InventorySystemOutUserOptionsTest {
 	
 	InventorySystemOutUserOptions inventoryOptions = new InventorySystemOutUserOptions();
 	
 	@Test
-	public void testMatchNumberedItemListEntryForEquip() {
-		assertTrue(inventoryOptions.inputMatchesItemInListForEquip("Equip 1"));
-		assertTrue(inventoryOptions.inputMatchesItemInListForEquip("Equip 11"));
+	public void testMatchStringForEquip() {
+		assertTrue(inventoryOptions.inputMatchesEquip("Equip 1"));
+		assertTrue(inventoryOptions.inputMatchesEquip("Equip 11"));
 		
-		assertTrue(inventoryOptions.inputMatchesItemInListForEquip("equiP 2"));
+		assertTrue(inventoryOptions.inputMatchesEquip("equiP 2"));
 	}
 	
 	@Test
-	public void testMatchNumberedItemListEntryForEquipDoesNotTriggerOnUnequip() {
-		assertFalse(inventoryOptions.inputMatchesItemInListForEquip("Unequip 1"));
-		assertFalse(inventoryOptions.inputMatchesItemInListForEquip("Unequip 11"));
+	public void testMatchStringForEquipDoesNotTriggerOnUnequip() {
+		assertFalse(inventoryOptions.inputMatchesEquip("Unequip 1"));
+		assertFalse(inventoryOptions.inputMatchesEquip("Unequip 11"));
 		
-		assertFalse(inventoryOptions.inputMatchesItemInListForEquip("unEquip 3"));
+		assertFalse(inventoryOptions.inputMatchesEquip("unEquip 3"));
 	}
 	
 	@Test
-	public void testMatchNumberedItemListEntryForUnequip() {
-		assertTrue(inventoryOptions.inputMatchesItemInListForUnequip("Unequip 1"));
-		assertTrue(inventoryOptions.inputMatchesItemInListForUnequip("Unequip 11"));
+	public void testMatchStringForUnequip() {
+		assertTrue(inventoryOptions.inputMatchesUnequip("Unequip 1"));
+		assertTrue(inventoryOptions.inputMatchesUnequip("Unequip 11"));
 		
-		assertTrue(inventoryOptions.inputMatchesItemInListForUnequip("unequiP 2"));
+		assertTrue(inventoryOptions.inputMatchesUnequip("unequiP 2"));
 	}
 	
 	@Test
-	public void testMatchNumberedItemListEntryForUnequipDoesNotTriggerOnEquip() {
-		assertFalse(inventoryOptions.inputMatchesItemInListForUnequip("Equip 1"));
-		assertFalse(inventoryOptions.inputMatchesItemInListForUnequip("Equip 11"));
+	public void testMatchStringForUnequipDoesNotTriggerOnEquip() {
+		assertFalse(inventoryOptions.inputMatchesUnequip("Equip 1"));
+		assertFalse(inventoryOptions.inputMatchesUnequip("Equip 11"));
 		
-		assertFalse(inventoryOptions.inputMatchesItemInListForUnequip("EqUip 3"));
+		assertFalse(inventoryOptions.inputMatchesUnequip("EqUip 3"));
 	}
 	
 	@Test
 	public void testGetItemNumber() {
 		assertEquals(1, inventoryOptions.getItemNumber("Equip 1"));
 		assertEquals(11, inventoryOptions.getItemNumber("Unequip 11"));
+	}
+
+	@Test
+	public void testIfItemNumberExistsInInventory() {
+		Map<StatAttribute, Integer> attribute = new HashMap<StatAttribute, Integer>();
+		GameState.getInstance().getCharacter().getInventory().add(new EquipmentItem("sword", attribute));
+
+		assertTrue(inventoryOptions.isNumberInInventory(0, GameState.getInstance().getCharacter().getInventory()));
+		
+		GameState.getInstance().getCharacter().getInventory().clear();;
 	}
 
 }

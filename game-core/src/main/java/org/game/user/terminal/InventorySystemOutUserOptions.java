@@ -40,7 +40,7 @@ public class InventorySystemOutUserOptions implements UserOptions {
 			messenger.notifyUser(message);
 		}
 
-		input = sc.next();
+		input = sc.nextLine();
 		if (input.equalsIgnoreCase("exit")) {
 			messenger.notifyUser("You closed your bag.");
 			SystemOutUserInterface.setUserOptions(new DefaultSystemOutUserOptions());
@@ -50,27 +50,33 @@ public class InventorySystemOutUserOptions implements UserOptions {
 			messenger.notifyUser("Type \"Unequip [number]\" to unequip.");
 			messenger.notifyUser("Type \"exit\" to exit the inventory screen.");
 		}
-		if (inputMatchesItemInListForEquip(input)) {
-			Item item = inventoryItems.get(getItemNumber(input) - 1);
-			if (inventoryItems.get(getItemNumber(input)).getClass().equals(EquipmentItem.class)) {
-				inventoryManager.equipItem((EquipmentItem) item);
-			} else {
-				messenger.notifyUser("You cannot equip that item.");
+		if (inputMatchesEquip(input)) {
+			int number = getItemNumber(input) - 1;
+			Item item;
+			if (isNumberInInventory(number, inventoryItems)) {
+				item = inventoryItems.get(number);
+				if (item.getClass().equals(EquipmentItem.class)) {
+					inventoryManager.equipItem((EquipmentItem) item);
+				} else {
+					messenger.notifyUser("You cannot equip that item.");
+				}
 			}
 		}
-		if (inputMatchesItemInListForUnequip(input)) {
-			Item item = inventoryItems.get(getItemNumber(input) - 1);
-			inventoryManager.unequipItem((EquipmentItem) item);
+		if (inputMatchesUnequip(input)) {
+			int number = getItemNumber(input) - 1;
+			if (isNumberInInventory(number, inventoryItems)) {
+				inventoryManager.unequipItem((EquipmentItem) inventoryItems.get(number));
+			}
 		}
 	}
 
-	protected boolean inputMatchesItemInListForEquip(String input) {
+	protected boolean inputMatchesEquip(String input) {
 		Pattern pattern = Pattern.compile("^equip\\s\\d", Pattern.CASE_INSENSITIVE);
 		Matcher matcher = pattern.matcher(input);
 		return matcher.find();
 	}
 
-	protected boolean inputMatchesItemInListForUnequip(String input) {
+	protected boolean inputMatchesUnequip(String input) {
 		Pattern pattern = Pattern.compile("^unequip\\s\\d", Pattern.CASE_INSENSITIVE);
 		Matcher matcher = pattern.matcher(input);
 		return matcher.find();
@@ -79,7 +85,12 @@ public class InventorySystemOutUserOptions implements UserOptions {
 	protected int getItemNumber(String input) {
 		Pattern pattern = Pattern.compile("\\d+");
 		Matcher matcher = pattern.matcher(input);
+		matcher.find();
 		return Integer.valueOf(input.substring(matcher.start(), matcher.end()));
+	}
+
+	protected boolean isNumberInInventory(int number, List<Item> inventoryItems) {
+		return inventoryItems.get(number) != null;
 	}
 
 }
