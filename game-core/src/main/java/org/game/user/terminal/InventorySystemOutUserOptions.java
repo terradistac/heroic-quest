@@ -40,7 +40,7 @@ public class InventorySystemOutUserOptions implements UserOptions {
 			messenger.notifyUser(message);
 		}
 
-		input = sc.nextLine();
+		input = sc.next();
 		if (input.equalsIgnoreCase("exit")) {
 			messenger.notifyUser("You closed your bag.");
 			SystemOutUserInterface.setUserOptions(new DefaultSystemOutUserOptions());
