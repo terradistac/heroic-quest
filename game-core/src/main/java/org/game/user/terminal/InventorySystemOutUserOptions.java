@@ -16,21 +16,20 @@ import org.game.user.UserOptions;
 
 public class InventorySystemOutUserOptions implements UserOptions {
 
-	boolean openingMessageSent = false;
+	private boolean openingMessageSent = false;
+	private Scanner sc;
+	private UserMessenger messenger;
+	private MessengerInventoryManagerWrapper inventoryManager;
+	private BasicInventoryManager basicInventoryManager;
+	private List<Item> inventoryItems = GameState.getInstance().getCharacter().getInventory();
+	private List<EquipmentItem> equippedItems = GameState.getInstance().getCharacter().getEquippedItems();
 
 	@Override
 	public void provideAvailableUserInputOptions() {
-		UserMessenger messenger = new UserMessengerFactory().generateSystemOutUserMessenger();
-		MessengerInventoryManagerWrapper inventoryManager = new MessengerInventoryManagerWrapper(
-				new BasicInventoryManager());
-		inventoryManager.setUserMessenger(messenger);
-		Scanner sc = SystemOutUserInterface.getScanner();
 		String input = "";
-		List<Item> inventoryItems = GameState.getInstance().getCharacter().getInventory();
-		List<EquipmentItem> equippedItems = GameState.getInstance().getCharacter().getEquippedItems();
 
 		if (!openingMessageSent) {
-			messenger.notifyUser("You have the following items in your inventory: \nType \"Help\" for available commands.");
+			this.getUserMessenger().notifyUser("You have the following items in your inventory: \nType \"Help\" for available commands.");
 	
 			int numberInList = 0;
 			for (Item item : inventoryItems) {
@@ -39,20 +38,20 @@ public class InventorySystemOutUserOptions implements UserOptions {
 				if (equippedItems.contains(item)) {
 					message.concat(" (Equipped)");
 				}
-				messenger.notifyUser(message);
+				this.getUserMessenger().notifyUser(message);
 			}
 			openingMessageSent = true;
 		}
 
-		input = sc.nextLine();
+		input = this.getScanner().nextLine();
 		if (input.equalsIgnoreCase("exit")) {
-			messenger.notifyUser("You closed your bag.");
+			this.getUserMessenger().notifyUser("You closed your bag.");
 			SystemOutUserInterface.setUserOptions(new DefaultSystemOutUserOptions());
 		}
 		if (input.equalsIgnoreCase("help")) {
-			messenger.notifyUser("Type \"Equip [number]\" to equip.");
-			messenger.notifyUser("Type \"Unequip [number]\" to unequip.");
-			messenger.notifyUser("Type \"exit\" to exit the inventory screen.");
+			this.getUserMessenger().notifyUser("Type \"Equip [number]\" to equip.");
+			this.getUserMessenger().notifyUser("Type \"Unequip [number]\" to unequip.");
+			this.getUserMessenger().notifyUser("Type \"exit\" to exit the inventory screen.");
 		}
 		if (inputMatchesEquip(input)) {
 			int number = getItemNumber(input) - 1;
@@ -60,16 +59,16 @@ public class InventorySystemOutUserOptions implements UserOptions {
 			if (isNumberInInventory(number, inventoryItems)) {
 				item = inventoryItems.get(number);
 				if (item.getClass().equals(EquipmentItem.class)) {
-					inventoryManager.equipItem((EquipmentItem) item);
+					getInventoryManagerWrapper().equipItem((EquipmentItem) item);
 				} else {
-					messenger.notifyUser("You cannot equip that item.");
+					this.getUserMessenger().notifyUser("You cannot equip that item.");
 				}
 			}
 		}
 		if (inputMatchesUnequip(input)) {
 			int number = getItemNumber(input) - 1;
 			if (isNumberInInventory(number, inventoryItems)) {
-				inventoryManager.unequipItem((EquipmentItem) inventoryItems.get(number));
+				getInventoryManagerWrapper().unequipItem((EquipmentItem) inventoryItems.get(number));
 			}
 		}
 	}
@@ -95,6 +94,53 @@ public class InventorySystemOutUserOptions implements UserOptions {
 
 	protected boolean isNumberInInventory(int number, List<Item> inventoryItems) {
 		return inventoryItems.get(number) != null;
+	}
+
+	protected void setScanner(Scanner scanner) {
+		this.sc = scanner;
+	}
+
+	public Scanner getScanner() {
+		if (this.sc == null) {
+			sc = SystemOutUserInterface.getScanner();
+		}
+		return this.sc;
+	}
+
+	public MessengerInventoryManagerWrapper getInventoryManagerWrapper() {
+		if (this.inventoryManager == null) {
+			MessengerInventoryManagerWrapper inventoryManager = new MessengerInventoryManagerWrapper(
+					this.getBasicInventoryManager());
+			inventoryManager.setUserMessenger(getUserMessenger());
+			this.inventoryManager = inventoryManager;
+		}
+		return this.inventoryManager;
+	}
+
+	protected void setInventoryManagerWrapper(MessengerInventoryManagerWrapper inventoryManager) {
+		this.inventoryManager = inventoryManager;
+	}
+
+	public BasicInventoryManager getBasicInventoryManager() {
+		if (this.basicInventoryManager == null) {
+			this.basicInventoryManager = new BasicInventoryManager();
+		}
+		return this.basicInventoryManager;
+	}
+
+	protected void setBasicInventoryManager(BasicInventoryManager basicInventoryManager) {
+		this.basicInventoryManager = basicInventoryManager;
+	}
+
+	public UserMessenger getUserMessenger() {
+		if (this.messenger == null) {
+			this.messenger = new UserMessengerFactory().generateSystemOutUserMessenger();
+		}
+		return this.messenger;
+	}
+
+	protected void setUserMessenger(UserMessenger userMessenger) {
+		this.messenger = userMessenger;
 	}
 
 }
