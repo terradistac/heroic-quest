@@ -29,47 +29,66 @@ public class InventorySystemOutUserOptions implements UserOptions {
 		String input = "";
 
 		if (!openingMessageSent) {
-			this.getUserMessenger().notifyUser("You have the following items in your inventory: \nType \"Help\" for available commands.");
-	
-			int numberInList = 0;
-			for (Item item : inventoryItems) {
-				numberInList = numberInList + 1;
-				String message = numberInList + ": " + item.getName();
-				if (equippedItems.contains(item)) {
-					message.concat(" (Equipped)");
-				}
-				this.getUserMessenger().notifyUser(message);
-			}
+			sendContentsOfInventoryToMessenger();
 			openingMessageSent = true;
 		}
 
 		input = this.getScanner().nextLine();
 		if (input.equalsIgnoreCase("exit")) {
-			this.getUserMessenger().notifyUser("You closed your bag.");
-			SystemOutUserInterface.setUserOptions(new DefaultSystemOutUserOptions());
+			closeBag();
 		}
 		if (input.equalsIgnoreCase("help")) {
-			this.getUserMessenger().notifyUser("Type \"Equip [number]\" to equip.");
-			this.getUserMessenger().notifyUser("Type \"Unequip [number]\" to unequip.");
-			this.getUserMessenger().notifyUser("Type \"exit\" to exit the inventory screen.");
+			provideHelpOptions();
 		}
 		if (inputMatchesEquip(input)) {
-			int number = getItemNumber(input) - 1;
-			Item item;
-			if (isNumberInInventory(number, inventoryItems)) {
-				item = inventoryItems.get(number);
-				if (item.getClass().equals(EquipmentItem.class)) {
-					getInventoryManagerWrapper().equipItem((EquipmentItem) item);
-				} else {
-					this.getUserMessenger().notifyUser("You cannot equip that item.");
-				}
-			}
+			equipSelectedItem(input);
 		}
 		if (inputMatchesUnequip(input)) {
-			int number = getItemNumber(input) - 1;
-			if (isNumberInInventory(number, inventoryItems)) {
-				getInventoryManagerWrapper().unequipItem((EquipmentItem) inventoryItems.get(number));
+			unequipSelectedItem(input);
+		}
+	}
+
+	protected void closeBag() {
+		this.getUserMessenger().notifyUser("You closed your bag.");
+		SystemOutUserInterface.setUserOptions(new DefaultSystemOutUserOptions());
+	}
+
+	protected void provideHelpOptions() {
+		this.getUserMessenger().notifyUser("Type \"Equip [number]\" to equip.");
+		this.getUserMessenger().notifyUser("Type \"Unequip [number]\" to unequip.");
+		this.getUserMessenger().notifyUser("Type \"exit\" to exit the inventory screen.");
+	}
+
+	protected void sendContentsOfInventoryToMessenger() {
+		this.getUserMessenger().notifyUser("You have the following items in your inventory: \nType \"Help\" for available commands.");
+		int numberInList = 0;
+		for (Item item : inventoryItems) {
+			numberInList = numberInList + 1;
+			String message = numberInList + ": " + item.getName();
+			if (equippedItems.contains(item)) {
+				message.concat(" (Equipped)");
 			}
+			this.getUserMessenger().notifyUser(message);
+		}
+	}
+
+	protected void equipSelectedItem(String input) {
+		int number = getItemNumber(input) - 1;
+		Item item;
+		if (isNumberInInventory(number, inventoryItems)) {
+			item = inventoryItems.get(number);
+			if (item.getClass().equals(EquipmentItem.class)) {
+				getInventoryManagerWrapper().equipItem((EquipmentItem) item);
+			} else {
+				this.getUserMessenger().notifyUser("You cannot equip that item.");
+			}
+		}
+	}
+
+	protected void unequipSelectedItem(String input) {
+		int number = getItemNumber(input) - 1;
+		if (isNumberInInventory(number, inventoryItems)) {
+			getInventoryManagerWrapper().unequipItem((EquipmentItem) inventoryItems.get(number));
 		}
 	}
 
