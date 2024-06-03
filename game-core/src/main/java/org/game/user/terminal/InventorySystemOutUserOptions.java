@@ -21,8 +21,10 @@ public class InventorySystemOutUserOptions implements UserOptions {
 	private UserMessenger messenger;
 	private MessengerInventoryManagerWrapper inventoryManager;
 	private BasicInventoryManager basicInventoryManager;
-	private List<Item> inventoryItems = GameState.getInstance().getCharacter().getInventory();
-	private List<EquipmentItem> equippedItems = GameState.getInstance().getCharacter().getEquippedItems();
+	private List<Item> inventoryItems;
+	private List<EquipmentItem> equippedItems;
+
+	protected static String OPENING_MESSAGE = "You have the following items in your inventory: \nType \"Help\" for available commands.";
 
 	@Override
 	public void provideAvailableUserInputOptions() {
@@ -60,13 +62,13 @@ public class InventorySystemOutUserOptions implements UserOptions {
 	}
 
 	protected void sendContentsOfInventoryToMessenger() {
-		this.getUserMessenger().notifyUser("You have the following items in your inventory: \nType \"Help\" for available commands.");
+		this.getUserMessenger().notifyUser(OPENING_MESSAGE);
 		int numberInList = 0;
-		for (Item item : inventoryItems) {
+		for (Item item : getInventoryItems()) {
 			numberInList = numberInList + 1;
 			String message = numberInList + ": " + item.getName();
-			if (equippedItems.contains(item)) {
-				message.concat(" (Equipped)");
+			if (getEquippedItems().contains(item)) {
+				message = message.concat(" (Equipped)");
 			}
 			this.getUserMessenger().notifyUser(message);
 		}
@@ -75,8 +77,8 @@ public class InventorySystemOutUserOptions implements UserOptions {
 	protected void equipSelectedItem(String input) {
 		int number = getItemNumber(input) - 1;
 		Item item;
-		if (isNumberInInventory(number, inventoryItems)) {
-			item = inventoryItems.get(number);
+		if (isNumberInInventory(number, getInventoryItems())) {
+			item = getInventoryItems().get(number);
 			if (item.getClass().equals(EquipmentItem.class)) {
 				getInventoryManagerWrapper().equipItem((EquipmentItem) item);
 			} else {
@@ -87,8 +89,8 @@ public class InventorySystemOutUserOptions implements UserOptions {
 
 	protected void unequipSelectedItem(String input) {
 		int number = getItemNumber(input) - 1;
-		if (isNumberInInventory(number, inventoryItems)) {
-			getInventoryManagerWrapper().unequipItem((EquipmentItem) inventoryItems.get(number));
+		if (isNumberInInventory(number, getInventoryItems())) {
+			getInventoryManagerWrapper().unequipItem((EquipmentItem) getInventoryItems().get(number));
 		}
 	}
 
@@ -119,14 +121,14 @@ public class InventorySystemOutUserOptions implements UserOptions {
 		this.sc = scanner;
 	}
 
-	public Scanner getScanner() {
+	private Scanner getScanner() {
 		if (this.sc == null) {
 			sc = SystemOutUserInterface.getScanner();
 		}
 		return this.sc;
 	}
 
-	public MessengerInventoryManagerWrapper getInventoryManagerWrapper() {
+	private MessengerInventoryManagerWrapper getInventoryManagerWrapper() {
 		if (this.inventoryManager == null) {
 			MessengerInventoryManagerWrapper inventoryManager = new MessengerInventoryManagerWrapper(
 					this.getBasicInventoryManager());
@@ -140,7 +142,7 @@ public class InventorySystemOutUserOptions implements UserOptions {
 		this.inventoryManager = inventoryManager;
 	}
 
-	public BasicInventoryManager getBasicInventoryManager() {
+	private BasicInventoryManager getBasicInventoryManager() {
 		if (this.basicInventoryManager == null) {
 			this.basicInventoryManager = new BasicInventoryManager();
 		}
@@ -151,7 +153,7 @@ public class InventorySystemOutUserOptions implements UserOptions {
 		this.basicInventoryManager = basicInventoryManager;
 	}
 
-	public UserMessenger getUserMessenger() {
+	private UserMessenger getUserMessenger() {
 		if (this.messenger == null) {
 			this.messenger = new UserMessengerFactory().generateSystemOutUserMessenger();
 		}
@@ -160,6 +162,28 @@ public class InventorySystemOutUserOptions implements UserOptions {
 
 	protected void setUserMessenger(UserMessenger userMessenger) {
 		this.messenger = userMessenger;
+	}
+
+	protected List<Item> getInventoryItems() {
+		if (this.inventoryItems == null) {
+			this.inventoryItems = GameState.getInstance().getCharacter().getInventory();
+		}
+		return inventoryItems;
+	}
+
+	protected void setInventoryItems(List<Item> inventoryItems) {
+		this.inventoryItems = inventoryItems;
+	}
+
+	protected List<EquipmentItem> getEquippedItems() {
+		if (this.equippedItems == null) {
+			this.equippedItems = GameState.getInstance().getCharacter().getEquippedItems();
+		}
+		return equippedItems;
+	}
+
+	protected void setEquippedItems(List<EquipmentItem> equippedItems) {
+		this.equippedItems = equippedItems;
 	}
 
 }

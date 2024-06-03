@@ -12,4 +12,12 @@ public abstract class Item {
 		return this.name;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if ((o != null) && (o instanceof Item) && (((Item) o).getName().equals(this.getName()))) {
+			return true;
+		}
+		return false;
+	}
+
 }
