@@ -13,11 +13,13 @@ public class GameCharacter {
 	
 	private String name;
 	private int healthPoints;
+	private int armorClass;
 	private Map<StatAttribute, Integer> statAttributes = new HashMap<>();
 	private List<EquipmentItem> equippedItems = new ArrayList<>();
 	private List<Item> inventory = new ArrayList<>();
 	
 	public GameCharacter() {
+		setArmorClass(10);
 		statAttributes.put(StatAttribute.CONSTITUTION, 0);
 		statAttributes.put(StatAttribute.DEXTERITY, 0);
 		statAttributes.put(StatAttribute.INTELLIGENCE, 0);
@@ -38,6 +40,14 @@ public class GameCharacter {
 		this.healthPoints = healthPoints;
 	}
 	
+	public int getArmorClass() {
+		return armorClass;
+	}
+
+	public void setArmorClass(int armorClass) {
+		this.armorClass = armorClass;
+	}
+
 	public Map<StatAttribute, Integer> getStatAttributes() {
 		return statAttributes;
 	}
