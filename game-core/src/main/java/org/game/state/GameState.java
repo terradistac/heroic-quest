@@ -3,6 +3,7 @@ package org.game.state;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.game.attributes.StatAttribute;
 import org.game.items.Item;
 
 public class GameState {
@@ -57,6 +58,13 @@ public class GameState {
 
 	public void setRun(boolean run) {
 		this.run = run;
+	}
+	
+	public void setupDefaultFighterClass() {
+		character.getStatAttributes().put(StatAttribute.CONSTITUTION, 1);
+		character.getStatAttributes().put(StatAttribute.DEXTERITY, 1);
+		character.getStatAttributes().put(StatAttribute.STRENGTH, 3);
+		character.setArmorClass(14);
 	}
 
 }
